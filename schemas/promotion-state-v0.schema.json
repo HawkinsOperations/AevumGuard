@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hawkinsoperations.dev/aevumguard/schemas/promotion-state-v0.schema.json",
+  "title": "AevumGuard Promotion State v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "loop",
+    "current_stage",
+    "gates",
+    "runtime",
+    "signal",
+    "human_review_gate",
+    "proofcard",
+    "claim_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "promotion-state-v0"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "loop": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "AI-assisted security work",
+          "Artifact Intake",
+          "Evidence Graph",
+          "Telemetry Contract Check",
+          "Controlled Validation",
+          "Runtime Candidate Ledger",
+          "Signal Observation",
+          "Human Review Gate",
+          "ProofCard",
+          "Claim Authority",
+          "Safe Claim / Blocked Claim"
+        ]
+      },
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "current_stage": {
+      "enum": [
+        "AI-assisted security work",
+        "Artifact Intake",
+        "Evidence Graph",
+        "Telemetry Contract Check",
+        "Controlled Validation",
+        "Runtime Candidate Ledger",
+        "Signal Observation",
+        "Human Review Gate",
+        "ProofCard",
+        "Claim Authority",
+        "Safe Claim / Blocked Claim"
+      ]
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_intake",
+        "telemetry_contract_check",
+        "controlled_validation"
+      ],
+      "properties": {
+        "artifact_intake": {
+          "enum": [
+            "not_started",
+            "accepted",
+            "blocked"
+          ]
+        },
+        "telemetry_contract_check": {
+          "enum": [
+            "not_checked",
+            "passed",
+            "failed",
+            "blocked"
+          ]
+        },
+        "controlled_validation": {
+          "enum": [
+            "not_started",
+            "running",
+            "passed",
+            "failed",
+            "blocked"
+          ]
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "observed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string"
+        },
+        "observed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "observed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "human_review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "review_refs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "changes_requested",
+            "allowed_to_continue",
+            "blocked"
+          ]
+        },
+        "review_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "proofcard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "proofcard_id",
+        "evidence_refs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_started",
+            "draft",
+            "ready_for_review",
+            "blocked"
+          ]
+        },
+        "proofcard_id": {
+          "type": "string"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "claim_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "disposition",
+        "public_safe",
+        "blocked_reasons"
+      ],
+      "properties": {
+        "capability": {
+          "const": "Claim Firewall"
+        },
+        "disposition": {
+          "enum": [
+            "not_evaluated",
+            "safe_claim",
+            "blocked_claim"
+          ]
+        },
+        "public_safe": {
+          "type": "boolean"
+        },
+        "blocked_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
