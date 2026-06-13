@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hawkinsoperations.dev/aevumguard/schemas/evidence-graph-v0.schema.json",
+  "title": "AevumGuard Evidence Graph v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "graph_id",
+    "artifact_id",
+    "nodes",
+    "edges",
+    "runtime",
+    "signal",
+    "claim_authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "evidence-graph-v0"
+    },
+    "graph_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "enum": [
+              "artifact",
+              "telemetry_contract_check",
+              "controlled_validation",
+              "runtime_candidate",
+              "signal_observation",
+              "human_review_gate",
+              "proofcard",
+              "claim_decision"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "from",
+          "to",
+          "relationship"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relationship": {
+            "enum": [
+              "feeds",
+              "checks",
+              "blocks",
+              "supports",
+              "summarizes",
+              "decides"
+            ]
+          }
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "observed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "candidate_id": {
+          "type": "string"
+        },
+        "observed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed",
+        "evidence_refs"
+      ],
+      "properties": {
+        "observed": {
+          "type": "boolean"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "claim_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "disposition",
+        "public_safe",
+        "blocked_reasons"
+      ],
+      "properties": {
+        "capability": {
+          "const": "Claim Firewall"
+        },
+        "disposition": {
+          "enum": [
+            "not_evaluated",
+            "safe_claim",
+            "blocked_claim"
+          ]
+        },
+        "public_safe": {
+          "type": "boolean"
+        },
+        "blocked_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

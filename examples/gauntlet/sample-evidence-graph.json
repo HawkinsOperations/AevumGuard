@@ -1,0 +1,118 @@
+{
+  "schema_version": "evidence-graph-v0",
+  "graph_id": "evidence-graph-example-v0",
+  "artifact_id": "artifact-ai-security-work-v0",
+  "nodes": [
+    {
+      "id": "artifact-ai-security-work-v0",
+      "type": "artifact",
+      "label": "AI-assisted security work",
+      "status": "intake accepted"
+    },
+    {
+      "id": "telemetry-contract-check-example-v0",
+      "type": "telemetry_contract_check",
+      "label": "Telemetry Contract Check",
+      "status": "not_checked"
+    },
+    {
+      "id": "controlled-validation-example-v0",
+      "type": "controlled_validation",
+      "label": "Controlled Validation",
+      "status": "not_started"
+    },
+    {
+      "id": "runtime-candidate-example-v0",
+      "type": "runtime_candidate",
+      "label": "Runtime Candidate Ledger",
+      "status": "observed=false"
+    },
+    {
+      "id": "signal-observation-example-v0",
+      "type": "signal_observation",
+      "label": "Signal Observation",
+      "status": "observed=false"
+    },
+    {
+      "id": "human-review-gate-example-v0",
+      "type": "human_review_gate",
+      "label": "Human Review Gate",
+      "status": "pending"
+    },
+    {
+      "id": "proofcard-example-v0",
+      "type": "proofcard",
+      "label": "ProofCard",
+      "status": "draft"
+    },
+    {
+      "id": "claim-decision-example-v0",
+      "type": "claim_decision",
+      "label": "Claim Authority",
+      "status": "blocked_claim"
+    }
+  ],
+  "edges": [
+    {
+      "from": "artifact-ai-security-work-v0",
+      "to": "telemetry-contract-check-example-v0",
+      "relationship": "feeds"
+    },
+    {
+      "from": "telemetry-contract-check-example-v0",
+      "to": "controlled-validation-example-v0",
+      "relationship": "checks"
+    },
+    {
+      "from": "controlled-validation-example-v0",
+      "to": "runtime-candidate-example-v0",
+      "relationship": "feeds"
+    },
+    {
+      "from": "runtime-candidate-example-v0",
+      "to": "signal-observation-example-v0",
+      "relationship": "feeds"
+    },
+    {
+      "from": "signal-observation-example-v0",
+      "to": "human-review-gate-example-v0",
+      "relationship": "feeds"
+    },
+    {
+      "from": "human-review-gate-example-v0",
+      "to": "proofcard-example-v0",
+      "relationship": "feeds"
+    },
+    {
+      "from": "proofcard-example-v0",
+      "to": "claim-decision-example-v0",
+      "relationship": "summarizes"
+    },
+    {
+      "from": "claim-decision-example-v0",
+      "to": "artifact-ai-security-work-v0",
+      "relationship": "blocks"
+    }
+  ],
+  "runtime": {
+    "candidate_id": "runtime-candidate-example-v0",
+    "observed": false,
+    "evidence_refs": []
+  },
+  "signal": {
+    "observed": false,
+    "evidence_refs": []
+  },
+  "claim_authority": {
+    "capability": "Claim Firewall",
+    "disposition": "blocked_claim",
+    "public_safe": false,
+    "blocked_reasons": [
+      "Telemetry contract check is not checked.",
+      "Controlled validation has not started.",
+      "Runtime candidate is not observed.",
+      "Signal observation is not observed.",
+      "Human Review Gate is pending."
+    ]
+  }
+}

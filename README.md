@@ -1,96 +1,64 @@
 # AevumGuard
 
-ProofOps control for the AI security era.
-
 AevumGuard is the ProofOps control plane for AI-assisted security work.
+
+AevumGuard is the HawkinsOperations product/front-door repo.
 
 AevumGuard governs how AI-assisted security work becomes tested, reviewed, blocked, or safe to claim.
 
-Claim Firewall is AevumGuard's first Claim Authority module. It is the wording enforcement edge for configured security claims, providing proof ceiling enforcement before unsupported wording ships. It is not proof authority, and it is not the product identity.
+Doctrine: AI is not the authority. Evidence is.
 
-The current `claimfirewall` CLI and GitHub Action scan Markdown, YAML, and text files for configured security wording that should not ship without separate evidence or authorization. They report the file path, line number, matched claim, reason, and suggested ceiling, then exit non-zero when findings are present.
+## Product Spine
 
-## Module map
+AevumGuard governs the product loop:
 
-- Artifact Intake
-- Evidence Graph
-- Telemetry Contract Engine
-- Validation Ledger
-- Promotion Gate
-- ProofCard Generator
-- AI Work Output Register
-- Claim Authority / Claim Firewall
+AI-assisted security work
+→ Artifact Intake
+→ Evidence Graph
+→ Telemetry Contract Check
+→ Controlled Validation
+→ Runtime Candidate Ledger
+→ Signal Observation
+→ Human Review Gate
+→ ProofCard
+→ Claim Authority
+→ Safe Claim / Blocked Claim
 
-## 30-second use
+The product spine in this repository defines the boundary, module map, doctrine, gauntlet, schemas, and examples for that loop. It does not create runtime proof, signal proof, final authorization, or external claims.
 
-Install locally:
+## Claim Firewall
 
-```powershell
-python -m pip install -e .
-```
+Claim Firewall is the first Claim Authority enforcement capability inside AevumGuard.
 
-Run passing and failing examples:
+Claim Firewall is not the product, not the front-door repo, not the platform, and not an eighth repo. It is an internal capability that helps Claim Authority block or constrain claims when evidence is missing, stale, incompatible, or insufficient.
 
-```powershell
-python -m claimfirewall scan examples/pass.md --policy policy/blocked_claims.yml
-python -m claimfirewall scan examples/fail.md --policy policy/blocked_claims.yml
-claimfirewall scan examples/pass.md --policy policy/blocked_claims.yml
-python -m claimfirewall.cli scan examples/pass.md --policy policy/blocked_claims.yml
-```
+Existing Claim Firewall behavior remains in the `claimfirewall` CLI, GitHub Action contract, policy loader, scanner, and tests. The product spine repositions that behavior inside AevumGuard; it does not replace the implementation.
 
-Use JSON output and excludes:
+## Repository Set
 
-```powershell
-python -m claimfirewall scan . --policy policy/blocked_claims.yml --exclude examples/fail.md --exclude policy/blocked_claims.yml --format json
-```
+The HawkinsOperations system is exactly seven repositories:
 
-## GitHub Action
+Exactly seven repos. No eighth repo.
 
-```yaml
-- uses: HawkinsOperations/claim-firewall@v0.1.0
-  with:
-    paths: "README.md docs"
-    format: "text"
-```
+* .github
+* hawkinsoperations-detections
+* hawkinsoperations-validation
+* hawkinsoperations-platform
+* hawkinsoperations-proof
+* hawkinsoperations-website
+* aevumguard
 
-If `policy` is not provided, the action uses the bundled policy from the action package. Callers can pass `policy`, `exclude`, and `format` inputs.
+No eighth repository is part of this product spine. AevumGuard modules are internal product modules, not separate repositories.
 
-Compatibility note: Existing Claim Firewall behavior remains available as AevumGuard's first Claim Authority enforcement capability. Repository rename may require updating GitHub Action references after the GitHub repo settings rename.
+## Current Contents
 
-## Policy Snippet
+* `PRODUCT_BOUNDARY.md` defines what AevumGuard owns and does not own.
+* `docs/product/AEVUMGUARD_BLUEPRINT.md` describes the v0 product spine.
+* `docs/product/MODULE_MAP.md` maps every loop stage to an internal module responsibility.
+* `docs/product/SEVEN_REPO_SYSTEM_MAP.md` preserves the seven-repo system boundary.
+* `docs/product/PROOFOPS_DOCTRINE.md` states the evidence-first doctrine.
+* `docs/gauntlet/AEVUMGUARD_GAUNTLET_V0.md` walks one artifact through the full loop.
+* `schemas/` contains v0 JSON shapes for promotion state and evidence graph records.
+* `examples/gauntlet/` contains sample JSON records with runtime observation, signal observation, and public safety status unset.
 
-```yaml
-version: 1
-blocked_claims:
-  - claim: production-ready
-    pattern: '\bproduction-ready\b'
-    reason: 'Claims production maturity that this tool does not establish.'
-    suggested_ceiling: 'TOOL_FUNCTION_ONLY'
-    allowed_context_patterns:
-      - '\bdoes not prove\b.*\bproduction\b'
-      - '\bdoes not claim\b.*\bproduction\b'
-      - '\bnot production-ready\b'
-```
-
-`allowed_context_patterns` suppress a finding only when the same line matches the blocked claim and an allowed context pattern for that same claim.
-
-## Proof Boundary
-
-AevumGuard's Claim Firewall module checks wording against configured policy only. It enforces claim ceilings; it does not authorize truth.
-
-It does not prove detection behavior, runtime telemetry, signal observation, production deployment, public-safe status, customer deployment, SOCaaS availability, AI approval, analyst approval, or final human authorization.
-
-Explicit non-claims:
-
-- no runtime proof claim
-- no signal observation claim
-- no production deployment claim
-- no public-safe approval claim
-- no SOCaaS availability claim
-- no customer deployment claim
-- no AI approval claim
-- no analyst approval claim
-
-Proof ceiling after local validation: `TOOL_FUNCTION_ONLY`.
-
-This rename and repositioning does not create runtime truth, signal truth, production readiness, SOCaaS availability, or case closure. It does not claim customer deployment, autonomous SOC capability, AI-approved disposition, or analyst-approved disposition.
+Proof ceiling: PRODUCT_SPINE_ONLY.
