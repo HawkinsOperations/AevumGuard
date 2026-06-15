@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hawkinsoperations.dev/hoxline/schemas/capability-visual-data-pack-v1.schema.json",
+  "title": "Hoxline Capability Visual Data Pack v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "showcase_id",
+    "artifact_id",
+    "product",
+    "category",
+    "doctrine",
+    "proof_ceiling",
+    "public_safe",
+    "human_review_required",
+    "current_safe_claim",
+    "executive_summary",
+    "positive_capabilities",
+    "loop_stage_statuses",
+    "generated_outputs",
+    "validation_metrics",
+    "contract_metrics",
+    "claim_authority_metrics",
+    "authority_surfaces",
+    "evidence_references",
+    "visual_modules",
+    "website_chart_data",
+    "blocked_claims_collapsed",
+    "remaining_gates",
+    "non_claims"
+  ],
+  "properties": {
+    "showcase_id": {
+      "const": "ho-det-001-capability-visual-data-pack-v1"
+    },
+    "artifact_id": {
+      "const": "HO-DET-001"
+    },
+    "product": {
+      "const": "Hoxline by HawkinsOperations"
+    },
+    "category": {
+      "const": "ProofOps"
+    },
+    "doctrine": {
+      "type": "object"
+    },
+    "proof_ceiling": {
+      "const": "CONTROLLED_TEST_VALIDATED"
+    },
+    "public_safe": {
+      "const": false
+    },
+    "human_review_required": {
+      "const": true
+    },
+    "current_safe_claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "executive_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "positive_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "loop_stage_statuses": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "$ref": "#/$defs/loop_stage"
+      }
+    },
+    "generated_outputs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/generated_output"
+      }
+    },
+    "validation_metrics": {
+      "type": "object"
+    },
+    "contract_metrics": {
+      "type": "object"
+    },
+    "claim_authority_metrics": {
+      "type": "object"
+    },
+    "authority_surfaces": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "$ref": "#/$defs/authority_surface"
+      }
+    },
+    "evidence_references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "visual_modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/visual_module"
+      }
+    },
+    "website_chart_data": {
+      "type": "object",
+      "required": [
+        "stage_status_distribution",
+        "loop_stage_status_chart",
+        "capability_maturity_chart",
+        "authority_surface_chart",
+        "generated_outputs_chart",
+        "claim_decision_chart",
+        "build_timeline"
+      ],
+      "properties": {
+        "stage_status_distribution": {
+          "type": "array"
+        },
+        "loop_stage_status_chart": {
+          "type": "array"
+        },
+        "capability_maturity_chart": {
+          "type": "array"
+        },
+        "authority_surface_chart": {
+          "type": "array"
+        },
+        "generated_outputs_chart": {
+          "type": "array"
+        },
+        "claim_decision_chart": {
+          "type": "array"
+        },
+        "build_timeline": {
+          "type": "array"
+        }
+      }
+    },
+    "blocked_claims_collapsed": {
+      "type": "object",
+      "required": [
+        "blocked_count",
+        "blocked_families",
+        "collapsed_summary",
+        "required_evidence_to_promote",
+        "why_gated_not_failure"
+      ],
+      "properties": {
+        "blocked_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "blocked_families": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "collapsed_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_evidence_to_promote": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "why_gated_not_failure": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "remaining_gates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/remaining_gate"
+      }
+    },
+    "non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "capability": {
+      "type": "object",
+      "required": [
+        "id",
+        "capability",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "loop_stage": {
+      "type": "object",
+      "required": [
+        "order",
+        "stage",
+        "status",
+        "status_group",
+        "authority_surface",
+        "reviewer_note"
+      ],
+      "properties": {
+        "order": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 11
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "BLOCKED",
+            "MISSING_EVIDENCE",
+            "HUMAN_REVIEW_REQUIRED",
+            "NOT_PUBLIC_SAFE",
+            "REFERENCE_ONLY"
+          ]
+        },
+        "status_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "generated_output": {
+      "type": "object",
+      "required": [
+        "output_type",
+        "path",
+        "target_reader"
+      ],
+      "properties": {
+        "output_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_reader": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "authority_surface": {
+      "type": "object",
+      "required": [
+        "repo",
+        "surface",
+        "owns",
+        "does_not_own",
+        "visual_group"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owns": {
+          "type": "string",
+          "minLength": 1
+        },
+        "does_not_own": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visual_group": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "visual_module": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "purpose",
+        "data_source",
+        "visual_treatment",
+        "mobile_behavior",
+        "proof_boundary_note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visual_treatment": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mobile_behavior": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proof_boundary_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "remaining_gate": {
+      "type": "object",
+      "required": [
+        "gate",
+        "status",
+        "needed"
+      ],
+      "properties": {
+        "gate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "needed": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
