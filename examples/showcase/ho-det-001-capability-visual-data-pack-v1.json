@@ -1,0 +1,862 @@
+{
+  "showcase_id": "ho-det-001-capability-visual-data-pack-v1",
+  "artifact_id": "HO-DET-001",
+  "product": "Hoxline by HawkinsOperations",
+  "category": "ProofOps",
+  "doctrine": {
+    "primary": "AI is not the authority. Evidence is.",
+    "control_plane": "Hoxline controls what AI-assisted security work is allowed to become.",
+    "proof_boundary": "Hoxline is not proof authority.",
+    "website_boundary": "Website rendering is not proof."
+  },
+  "proof_ceiling": "CONTROLLED_TEST_VALIDATED",
+  "public_safe": false,
+  "human_review_required": true,
+  "current_safe_claim": "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.",
+  "executive_summary": "Hoxline can run the HO-DET-001 ProofOps loop, package reviewer-readable outputs, verify the output contract, preserve the controlled-validation proof ceiling, and keep stronger claims gated when evidence is missing.",
+  "positive_capabilities": [
+    {
+      "id": "canonical-proofops-loop",
+      "capability": "Hoxline can run the canonical ProofOps loop for HO-DET-001.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    {
+      "id": "reviewer-json",
+      "capability": "Hoxline can emit reviewer-readable JSON.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    {
+      "id": "reviewer-markdown",
+      "capability": "Hoxline can emit reviewer-readable Markdown.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.md"
+    },
+    {
+      "id": "output-contract-verification",
+      "capability": "Hoxline can verify the Gauntlet full-loop output contract.",
+      "evidence": "schemas/gauntlet-full-loop-run-v0.schema.json"
+    },
+    {
+      "id": "proof-ceiling-preservation",
+      "capability": "Hoxline can preserve the CONTROLLED_TEST_VALIDATED proof ceiling.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    {
+      "id": "safe-claim-mapping",
+      "capability": "Hoxline can map artifact state to allowed claim wording.",
+      "evidence": "examples/gauntlet/ho-det-001-proofcard-v0.json"
+    },
+    {
+      "id": "blocked-claim-mapping",
+      "capability": "Hoxline can map blocked claim families to safer wording and missing evidence.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    {
+      "id": "runtime-signal-gating",
+      "capability": "Hoxline can keep runtime and signal gated when evidence is missing.",
+      "evidence": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    {
+      "id": "authority-separation",
+      "capability": "Hoxline can represent authority separation across the seven-repo system.",
+      "evidence": "README.md"
+    },
+    {
+      "id": "single-artifact-story",
+      "capability": "Hoxline can show one artifact, one loop, one safe claim, and blocked stronger claims.",
+      "evidence": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    }
+  ],
+  "loop_stage_statuses": [
+    {
+      "order": 1,
+      "stage": "AI-assisted security work",
+      "status": "REFERENCE_ONLY",
+      "status_group": "reference",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Artifact is treated as referenced AI-assisted security work; AI is not authority."
+    },
+    {
+      "order": 2,
+      "stage": "Artifact Intake",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Artifact intake is accepted for this controlled run."
+    },
+    {
+      "order": 3,
+      "stage": "Evidence Graph",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Evidence graph example links the artifact through the loop."
+    },
+    {
+      "order": 4,
+      "stage": "Telemetry Contract Check",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hawkinsoperations-platform",
+      "reviewer_note": "Telemetry contract support is referenced from source-truth artifacts."
+    },
+    {
+      "order": 5,
+      "stage": "Controlled Validation",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hawkinsoperations-validation",
+      "reviewer_note": "Controlled validation is limited to controlled positive and negative process-creation fixtures."
+    },
+    {
+      "order": 6,
+      "stage": "Runtime Candidate Ledger",
+      "status": "BLOCKED",
+      "status_group": "gated",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Runtime evidence is missing; this run does not claim runtime-active status."
+    },
+    {
+      "order": 7,
+      "stage": "Signal Observation",
+      "status": "MISSING_EVIDENCE",
+      "status_group": "gated",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Signal evidence is missing; this run does not claim signal observed status."
+    },
+    {
+      "order": 8,
+      "stage": "Human Review Gate",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "status_group": "review",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Human review remains required; no final authorization claim is made."
+    },
+    {
+      "order": 9,
+      "stage": "ProofCard",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hawkinsoperations-proof",
+      "reviewer_note": "ProofCard v0 exists as a reviewer bridge, not proof authority."
+    },
+    {
+      "order": 10,
+      "stage": "Claim Authority",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Claim Authority preserves allowed wording and blocked wording boundaries."
+    },
+    {
+      "order": 11,
+      "stage": "Safe Claim / Blocked Claim",
+      "status": "PASS",
+      "status_group": "working",
+      "authority_surface": "hoxline",
+      "reviewer_note": "Safe and blocked outputs are present under the controlled-validation proof ceiling."
+    }
+  ],
+  "generated_outputs": [
+    {
+      "output_type": "json",
+      "path": "examples/gauntlet/ho-det-001-full-loop-run-v0.json",
+      "target_reader": "reviewer or website data loader"
+    },
+    {
+      "output_type": "markdown",
+      "path": "examples/gauntlet/ho-det-001-full-loop-run-v0.md",
+      "target_reader": "human reviewer"
+    },
+    {
+      "output_type": "schema",
+      "path": "schemas/gauntlet-full-loop-run-v0.schema.json",
+      "target_reader": "contract verifier"
+    },
+    {
+      "output_type": "schema",
+      "path": "schemas/capability-visual-data-pack-v1.schema.json",
+      "target_reader": "website data loader"
+    }
+  ],
+  "validation_metrics": {
+    "canonical_loop_stages": {
+      "value": 11,
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "authority_surfaces": {
+      "value": 7,
+      "status": "measured",
+      "source": "README.md"
+    },
+    "generated_reviewer_outputs": {
+      "value": 2,
+      "status": "measured",
+      "source": "examples/gauntlet"
+    },
+    "proof_ceiling": {
+      "value": "CONTROLLED_TEST_VALIDATED",
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "public_safe": {
+      "value": false,
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "human_review_required": {
+      "value": true,
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "runtime_status": {
+      "value": "BLOCKED",
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "signal_status": {
+      "value": "MISSING_EVIDENCE",
+      "status": "measured",
+      "source": "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+    },
+    "pytest_count_current": {
+      "value": 53,
+      "status": "measured",
+      "source": "capability visual data pack validation run"
+    },
+    "output_contract_tests": {
+      "value": 8,
+      "status": "measured",
+      "source": "tests/test_hoxline_gauntlet.py"
+    },
+    "controlled_validation_positives": {
+      "value": 7,
+      "status": "measured",
+      "source": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    },
+    "controlled_validation_negatives": {
+      "value": 7,
+      "status": "measured",
+      "source": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    },
+    "matched_positives": {
+      "value": 7,
+      "status": "measured",
+      "source": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    },
+    "missed_positives": {
+      "value": 0,
+      "status": "measured",
+      "source": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    },
+    "false_positive_negatives": {
+      "value": 0,
+      "status": "measured",
+      "source": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md"
+    }
+  },
+  "contract_metrics": {
+    "gauntlet_output_schema": "schemas/gauntlet-full-loop-run-v0.schema.json",
+    "visual_data_pack_schema": "schemas/capability-visual-data-pack-v1.schema.json",
+    "verify_command": "$env:PYTHONPATH='src'; python -B -m hoxline gauntlet verify --input examples/gauntlet/ho-det-001-full-loop-run-v0.json",
+    "required_gauntlet_fields": 13,
+    "contract_test_count": 8
+  },
+  "claim_authority_metrics": {
+    "safe_claim_count": 1,
+    "blocked_claim_family_count": 23,
+    "safer_wording_available": true,
+    "missing_evidence_available": true,
+    "public_safe": false
+  },
+  "authority_surfaces": [
+    {
+      "repo": ".github",
+      "surface": "organization workflow metadata",
+      "owns": "organization-level repository coordination",
+      "does_not_own": "artifact proof status",
+      "visual_group": "governance"
+    },
+    {
+      "repo": "hawkinsoperations-detections",
+      "surface": "detection source",
+      "owns": "detection rule and status source references",
+      "does_not_own": "public-safe release claims",
+      "visual_group": "source"
+    },
+    {
+      "repo": "hawkinsoperations-validation",
+      "surface": "controlled validation",
+      "owns": "controlled validation cases and reports",
+      "does_not_own": "runtime or signal claims",
+      "visual_group": "validation"
+    },
+    {
+      "repo": "hawkinsoperations-platform",
+      "surface": "runtime contract examples",
+      "owns": "platform contract references",
+      "does_not_own": "runtime observation proof",
+      "visual_group": "contract"
+    },
+    {
+      "repo": "hawkinsoperations-proof",
+      "surface": "proof records and cards",
+      "owns": "proof status records",
+      "does_not_own": "Hoxline website rendering",
+      "visual_group": "authority"
+    },
+    {
+      "repo": "hawkinsoperations-website",
+      "surface": "public rendering",
+      "owns": "website presentation",
+      "does_not_own": "proof authority",
+      "visual_group": "presentation"
+    },
+    {
+      "repo": "hoxline",
+      "surface": "ProofOps control plane",
+      "owns": "claim boundary packaging, Gauntlet runner, output contract, and website-ready data",
+      "does_not_own": "proof authority",
+      "visual_group": "control-plane"
+    }
+  ],
+  "evidence_references": [
+    "examples/demo/ho-det-001-controlled-demo-manifest.json",
+    "examples/gauntlet/ho-det-001-proofcard-v0.json",
+    "examples/gauntlet/ho-det-001-evidence-graph-v0.json",
+    "examples/gauntlet/ho-det-001-promotion-state-v0.json",
+    "examples/gauntlet/ho-det-001-full-loop-run-v0.json",
+    "examples/gauntlet/ho-det-001-full-loop-run-v0.md",
+    "schemas/gauntlet-full-loop-run-v0.schema.json",
+    "docs/gauntlet/HOXLINE_GAUNTLET_FULL_LOOP_RUNNER_V0.md"
+  ],
+  "visual_modules": [
+    {
+      "id": "mission_control_hero",
+      "title": "Mission Control Hero",
+      "purpose": "Show Hoxline as a working ProofOps control plane for one artifact.",
+      "data_source": "executive_summary, positive_capabilities, validation_metrics",
+      "visual_treatment": "compact command-center header with capability counters",
+      "mobile_behavior": "stack summary, proof ceiling, and safe claim as short rows",
+      "proof_boundary_note": "Website rendering is not proof."
+    },
+    {
+      "id": "proofops_loop_orbit",
+      "title": "ProofOps Loop Orbit",
+      "purpose": "Render the 11-stage loop with status coloring.",
+      "data_source": "website_chart_data.loop_stage_status_chart",
+      "visual_treatment": "orbit or rail diagram with pass, gated, review, and reference states",
+      "mobile_behavior": "vertical ordered timeline",
+      "proof_boundary_note": "Controlled validation proves controlled validation only."
+    },
+    {
+      "id": "gauntlet_execution_console",
+      "title": "Gauntlet Execution Console",
+      "purpose": "Show generated outputs and verifier command.",
+      "data_source": "generated_outputs, contract_metrics",
+      "visual_treatment": "terminal-style output list with JSON, Markdown, and schema rows",
+      "mobile_behavior": "single-column output cards",
+      "proof_boundary_note": "Generated output is reviewer packaging, not proof authority."
+    },
+    {
+      "id": "capability_maturity_visual",
+      "title": "Capability Maturity Visual",
+      "purpose": "Separate built capabilities from gated capabilities.",
+      "data_source": "website_chart_data.capability_maturity_chart",
+      "visual_treatment": "horizontal bar chart with conservative maturity scores",
+      "mobile_behavior": "ranked list with labels",
+      "proof_boundary_note": "Low scores for gated areas are intentional evidence boundaries."
+    },
+    {
+      "id": "authority_constellation",
+      "title": "Authority Constellation",
+      "purpose": "Show seven-repo authority separation.",
+      "data_source": "authority_surfaces, website_chart_data.authority_surface_chart",
+      "visual_treatment": "node map grouped by source, validation, authority, and presentation",
+      "mobile_behavior": "accordion by visual group",
+      "proof_boundary_note": "Hoxline is not proof authority."
+    },
+    {
+      "id": "evidence_pipeline_timeline",
+      "title": "Evidence Pipeline Timeline",
+      "purpose": "Trace artifact data from demo packaging through Gauntlet output.",
+      "data_source": "evidence_references, website_chart_data.build_timeline",
+      "visual_treatment": "milestone timeline",
+      "mobile_behavior": "compact stepper",
+      "proof_boundary_note": "Pipeline visibility does not create runtime or signal evidence."
+    },
+    {
+      "id": "claim_decision_matrix",
+      "title": "Claim Decision Matrix",
+      "purpose": "Show one allowed claim and collapsed blocked families.",
+      "data_source": "current_safe_claim, website_chart_data.claim_decision_chart, blocked_claims_collapsed",
+      "visual_treatment": "matrix with allowed, gated, and evidence-needed columns",
+      "mobile_behavior": "tabbed allowed and gated sections",
+      "proof_boundary_note": "Blocked families remain blocked until evidence exists."
+    },
+    {
+      "id": "generated_outputs_wall",
+      "title": "Generated Outputs Wall",
+      "purpose": "Show the concrete artifacts available to reviewers and website loaders.",
+      "data_source": "website_chart_data.generated_outputs_chart",
+      "visual_treatment": "output cards with target reader labels",
+      "mobile_behavior": "two-column then single-column responsive grid",
+      "proof_boundary_note": "Outputs are packaging, not final authorization."
+    },
+    {
+      "id": "reviewer_path_timeline",
+      "title": "Reviewer Path Timeline",
+      "purpose": "Show how a reviewer moves from source references to safe claim.",
+      "data_source": "loop_stage_statuses, evidence_references",
+      "visual_treatment": "linear reviewer path with authority-reference badges",
+      "mobile_behavior": "vertical checklist",
+      "proof_boundary_note": "Human review remains required."
+    },
+    {
+      "id": "still_gated_panel",
+      "title": "Still Gated Panel",
+      "purpose": "Summarize remaining gates without making them the primary story.",
+      "data_source": "remaining_gates, blocked_claims_collapsed",
+      "visual_treatment": "collapsed evidence-needed panel",
+      "mobile_behavior": "accordion closed by default",
+      "proof_boundary_note": "Gated does not mean failed; it means evidence is missing."
+    },
+    {
+      "id": "complexity_stats_rail",
+      "title": "Complexity Stats Rail",
+      "purpose": "Show bounded counts that explain the amount of working structure.",
+      "data_source": "validation_metrics, contract_metrics, claim_authority_metrics",
+      "visual_treatment": "small metric rail",
+      "mobile_behavior": "scrollable compact stat row",
+      "proof_boundary_note": "Counts are bounded to this data pack and cited sources."
+    }
+  ],
+  "website_chart_data": {
+    "stage_status_distribution": [
+      {
+        "status": "PASS",
+        "count": 7,
+        "stages": [
+          "Artifact Intake",
+          "Evidence Graph",
+          "Telemetry Contract Check",
+          "Controlled Validation",
+          "ProofCard",
+          "Claim Authority",
+          "Safe Claim / Blocked Claim"
+        ]
+      },
+      {
+        "status": "BLOCKED",
+        "count": 1,
+        "stages": [
+          "Runtime Candidate Ledger"
+        ]
+      },
+      {
+        "status": "MISSING_EVIDENCE",
+        "count": 1,
+        "stages": [
+          "Signal Observation"
+        ]
+      },
+      {
+        "status": "HUMAN_REVIEW_REQUIRED",
+        "count": 1,
+        "stages": [
+          "Human Review Gate"
+        ]
+      },
+      {
+        "status": "REFERENCE_ONLY",
+        "count": 1,
+        "stages": [
+          "AI-assisted security work"
+        ]
+      }
+    ],
+    "loop_stage_status_chart": [
+      {
+        "order": 1,
+        "stage": "AI-assisted security work",
+        "status": "REFERENCE_ONLY",
+        "status_group": "reference",
+        "authority_surface": "hoxline",
+        "reviewer_note": "AI is not authority."
+      },
+      {
+        "order": 2,
+        "stage": "Artifact Intake",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Artifact accepted for controlled run."
+      },
+      {
+        "order": 3,
+        "stage": "Evidence Graph",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Loop linkage exists."
+      },
+      {
+        "order": 4,
+        "stage": "Telemetry Contract Check",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hawkinsoperations-platform",
+        "reviewer_note": "Contract support is referenced."
+      },
+      {
+        "order": 5,
+        "stage": "Controlled Validation",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hawkinsoperations-validation",
+        "reviewer_note": "Controlled validation evidence exists."
+      },
+      {
+        "order": 6,
+        "stage": "Runtime Candidate Ledger",
+        "status": "BLOCKED",
+        "status_group": "gated",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Runtime evidence is missing."
+      },
+      {
+        "order": 7,
+        "stage": "Signal Observation",
+        "status": "MISSING_EVIDENCE",
+        "status_group": "gated",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Signal evidence is missing."
+      },
+      {
+        "order": 8,
+        "stage": "Human Review Gate",
+        "status": "HUMAN_REVIEW_REQUIRED",
+        "status_group": "review",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Human review remains required."
+      },
+      {
+        "order": 9,
+        "stage": "ProofCard",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hawkinsoperations-proof",
+        "reviewer_note": "ProofCard bridge exists."
+      },
+      {
+        "order": 10,
+        "stage": "Claim Authority",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Claim wording boundaries exist."
+      },
+      {
+        "order": 11,
+        "stage": "Safe Claim / Blocked Claim",
+        "status": "PASS",
+        "status_group": "working",
+        "authority_surface": "hoxline",
+        "reviewer_note": "Safe and blocked outputs exist."
+      }
+    ],
+    "capability_maturity_chart": [
+      {
+        "capability": "Gauntlet full-loop runner",
+        "maturity_score": 85,
+        "maturity_label": "operational v0",
+        "basis": "Runner emits JSON and Markdown for all 11 stages."
+      },
+      {
+        "capability": "Gauntlet output contract",
+        "maturity_score": 80,
+        "maturity_label": "contracted v0",
+        "basis": "Verify CLI and schema enforce output invariants."
+      },
+      {
+        "capability": "Controlled validation packaging",
+        "maturity_score": 78,
+        "maturity_label": "validated in controlled scope",
+        "basis": "Controlled positive and negative metrics are recorded."
+      },
+      {
+        "capability": "Claim Authority packaging",
+        "maturity_score": 76,
+        "maturity_label": "working boundary control",
+        "basis": "Allowed claim and blocked claim families are emitted."
+      },
+      {
+        "capability": "Runtime evidence",
+        "maturity_score": 20,
+        "maturity_label": "gated",
+        "basis": "Runtime Candidate Ledger remains BLOCKED."
+      },
+      {
+        "capability": "Signal evidence",
+        "maturity_score": 20,
+        "maturity_label": "gated",
+        "basis": "Signal Observation remains MISSING_EVIDENCE."
+      },
+      {
+        "capability": "Public-safe release",
+        "maturity_score": 10,
+        "maturity_label": "not public-safe",
+        "basis": "public_safe remains false."
+      },
+      {
+        "capability": "Business, legal, and market claims",
+        "maturity_score": 5,
+        "maturity_label": "not asserted",
+        "basis": "Business, legal, and market evidence is outside this controlled data pack."
+      }
+    ],
+    "authority_surface_chart": [
+      {
+        "repo": ".github",
+        "surface": "organization workflow metadata",
+        "owns": "repository coordination",
+        "does_not_own": "proof status",
+        "visual_group": "governance"
+      },
+      {
+        "repo": "hawkinsoperations-detections",
+        "surface": "detection source",
+        "owns": "rule source",
+        "does_not_own": "public claim authorization",
+        "visual_group": "source"
+      },
+      {
+        "repo": "hawkinsoperations-validation",
+        "surface": "controlled validation",
+        "owns": "controlled validation reports",
+        "does_not_own": "runtime observation",
+        "visual_group": "validation"
+      },
+      {
+        "repo": "hawkinsoperations-platform",
+        "surface": "runtime contract examples",
+        "owns": "contract examples",
+        "does_not_own": "signal observation",
+        "visual_group": "contract"
+      },
+      {
+        "repo": "hawkinsoperations-proof",
+        "surface": "proof records",
+        "owns": "proof records",
+        "does_not_own": "website rendering",
+        "visual_group": "authority"
+      },
+      {
+        "repo": "hawkinsoperations-website",
+        "surface": "public rendering",
+        "owns": "presentation",
+        "does_not_own": "proof authority",
+        "visual_group": "presentation"
+      },
+      {
+        "repo": "hoxline",
+        "surface": "ProofOps control plane",
+        "owns": "Gauntlet, contracts, and claim-boundary packaging",
+        "does_not_own": "proof authority",
+        "visual_group": "control-plane"
+      }
+    ],
+    "generated_outputs_chart": [
+      {
+        "output_type": "JSON",
+        "count": 1,
+        "examples": [
+          "examples/gauntlet/ho-det-001-full-loop-run-v0.json"
+        ],
+        "target_reader": "website data loader"
+      },
+      {
+        "output_type": "Markdown",
+        "count": 1,
+        "examples": [
+          "examples/gauntlet/ho-det-001-full-loop-run-v0.md"
+        ],
+        "target_reader": "human reviewer"
+      },
+      {
+        "output_type": "Schema",
+        "count": 2,
+        "examples": [
+          "schemas/gauntlet-full-loop-run-v0.schema.json",
+          "schemas/capability-visual-data-pack-v1.schema.json"
+        ],
+        "target_reader": "verifier or data loader"
+      }
+    ],
+    "claim_decision_chart": [
+      {
+        "category": "allowed controlled claim",
+        "count": 1,
+        "examples": [
+          "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review."
+        ],
+        "status": "allowed"
+      },
+      {
+        "category": "blocked stronger claim families",
+        "count": 23,
+        "examples": [
+          "runtime-active",
+          "signal observed",
+          "public-safe proof"
+        ],
+        "status": "blocked"
+      },
+      {
+        "category": "missing evidence groups",
+        "count": 17,
+        "examples": [
+          "runtime_evidence",
+          "signal_observation_evidence",
+          "public_safe_authorization"
+        ],
+        "status": "required_next_evidence"
+      }
+    ],
+    "build_timeline": [
+      {
+        "order": 1,
+        "milestone": "Hoxline product/front-door route",
+        "what_changed": "Hoxline became the current product/front-door repo.",
+        "artifact_or_pr": "README.md",
+        "visual_weight": 3
+      },
+      {
+        "order": 2,
+        "milestone": "Route discovery cleanup",
+        "what_changed": "Repository boundaries and route responsibilities were clarified.",
+        "artifact_or_pr": "docs/product/SEVEN_REPO_SYSTEM_MAP.md",
+        "visual_weight": 2
+      },
+      {
+        "order": 3,
+        "milestone": "HO-DET-001 controlled demo packaging",
+        "what_changed": "Controlled demo artifacts and reviewer entry points were packaged.",
+        "artifact_or_pr": "examples/demo/ho-det-001-controlled-demo-manifest.json",
+        "visual_weight": 4
+      },
+      {
+        "order": 4,
+        "milestone": "Gauntlet v0 full-loop runner",
+        "what_changed": "Runner emitted JSON and Markdown across the 11-stage loop.",
+        "artifact_or_pr": "PR #11",
+        "visual_weight": 5
+      },
+      {
+        "order": 5,
+        "milestone": "Output contract v0",
+        "what_changed": "Schema and verify CLI made the Gauntlet output enforceable.",
+        "artifact_or_pr": "PR #12",
+        "visual_weight": 5
+      },
+      {
+        "order": 6,
+        "milestone": "Current capability visual data pack",
+        "what_changed": "Website-ready chart datasets and visual module specs were created.",
+        "artifact_or_pr": "ho-det-001-capability-visual-data-pack-v1",
+        "visual_weight": 5
+      }
+    ]
+  },
+  "blocked_claims_collapsed": {
+    "blocked_count": 23,
+    "blocked_families": [
+      "runtime-active",
+      "runtime proven",
+      "signal observed",
+      "public-safe proof",
+      "production-ready",
+      "SOCaaS-ready",
+      "SOCaaS deployed",
+      "customer deployed",
+      "AI approved",
+      "analyst approved",
+      "final human authorization",
+      "case closed",
+      "public runtime proof",
+      "public signal proof",
+      "revenue",
+      "legal availability",
+      "product-market fit",
+      "AWS-live",
+      "Cribl routed live telemetry",
+      "Wazuh routed live telemetry",
+      "autonomous SOC",
+      "live Splunk fired",
+      "public-safe"
+    ],
+    "collapsed_summary": "Stronger claim families remain grouped behind a reviewer gate so the website can lead with built capabilities without hiding evidence boundaries.",
+    "required_evidence_to_promote": [
+      "runtime_evidence",
+      "signal_observation_evidence",
+      "public_safe_authorization",
+      "human_review_gate_complete",
+      "analyst_review_record",
+      "final_authorization_record",
+      "case_closure_record",
+      "legal_review_record",
+      "business_evidence_record"
+    ],
+    "why_gated_not_failure": "Gated means the required evidence is not present in this controlled data pack; it does not mean the controlled-validation loop failed."
+  },
+  "remaining_gates": [
+    {
+      "gate": "Runtime Candidate Ledger",
+      "status": "BLOCKED",
+      "needed": "preserved runtime evidence"
+    },
+    {
+      "gate": "Signal Observation",
+      "status": "MISSING_EVIDENCE",
+      "needed": "preserved signal observation evidence"
+    },
+    {
+      "gate": "Human Review Gate",
+      "status": "HUMAN_REVIEW_REQUIRED",
+      "needed": "human review gate completion record"
+    },
+    {
+      "gate": "Public-safe release",
+      "status": "NOT_PUBLIC_SAFE",
+      "needed": "public_safe_authorization"
+    },
+    {
+      "gate": "Business and legal claims",
+      "status": "MISSING_EVIDENCE",
+      "needed": "business and legal review records"
+    }
+  ],
+  "non_claims": [
+    "runtime truth",
+    "signal truth",
+    "public-safe proof",
+    "production readiness",
+    "SOCaaS availability",
+    "customer deployment",
+    "autonomous SOC operation",
+    "AI-approved disposition",
+    "analyst-approved disposition",
+    "final human authorization",
+    "ProofCard proof authority",
+    "public runtime proof",
+    "public signal proof",
+    "enterprise purchase intent",
+    "customer traction",
+    "revenue",
+    "legal availability",
+    "trademark clearance",
+    "LLC formation",
+    "product-market fit",
+    "case closure"
+  ]
+}
