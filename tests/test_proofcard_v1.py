@@ -32,6 +32,9 @@ def test_proofcard_render_outputs_deterministic_json(capsys) -> None:
     assert status == 0
     assert rendered == json.loads(render_proofcard_v1(_json(RUN)))
     assert rendered["proof_ceiling"] == "CONTROLLED_TEST_VALIDATED"
+    assert rendered["proof_owner"] == "hawkinsoperations-proof"
+    for field in _json(SCHEMA)["required"]:
+        assert field in rendered
 
 
 def _json(path: Path) -> dict[str, object]:

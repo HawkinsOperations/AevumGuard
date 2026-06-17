@@ -411,18 +411,27 @@ def render_proofcard_v1(report: dict[str, Any]) -> str:
     proofcard = report.get("proofcard")
     if not isinstance(proofcard, dict):
         proofcard = {}
+    authority_split = report.get("authority_split", {})
+    if not isinstance(authority_split, dict):
+        authority_split = {}
     rendered = {
         "schema_version": "proofcard-v1",
         "proofcard_id": proofcard.get("proofcard_id", "ho-det-001-proofcard-v1"),
         "detection_id": report.get("detection_id"),
         "artifact_id": report.get("artifact_id"),
+        "source_owner": authority_split.get("source_owner", ""),
+        "validation_owner": authority_split.get("validation_owner", ""),
+        "platform_owner": authority_split.get("platform_owner", ""),
+        "proof_owner": proofcard.get("proof_owner") or authority_split.get("proof_owner", ""),
+        "website_owner": authority_split.get("website_owner", ""),
         "proof_ceiling": report.get("proof_ceiling", PROOF_CEILING_V1),
         "public_safe": bool(report.get("public_safe")),
+        "public_safe_status": report.get("public_safe_status", "blocked"),
         "human_review_required": bool(report.get("human_review_required")),
         "allowed_claims": decide_claim_authority_v1(report)["allowed_claims"],
         "blocked_claims": decide_claim_authority_v1(report)["blocked_claims"],
         "missing_evidence": decide_claim_authority_v1(report)["missing_evidence"],
-        "authority_split": report.get("authority_split", {}),
+        "authority_split": authority_split,
         "website_boundary": report.get("website_boundary", {}),
         "evidence_refs": proofcard.get("evidence_refs", []),
         "next_gate": report.get("next_gate", NEXT_GATE_V1),

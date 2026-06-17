@@ -17,6 +17,10 @@ python -B -m hoxline proofcard render --input examples/gauntlet/ho-det-001-gaunt
 
 No server is required. No runtime collector is required.
 
+## Source Routes
+
+Downstream reviewers can use `examples/gauntlet/ho-det-001-gauntlet-v1-source-manifest.json` as the machine-readable route index for the v1 examples, schemas, reviewer docs, and CLI commands.
+
 ## What It Proves
 
 The command proves that the local Gauntlet v1 record preserves the product-loop shape, owner split, proof ceiling, missing evidence list, blocked claims, and next gate.
