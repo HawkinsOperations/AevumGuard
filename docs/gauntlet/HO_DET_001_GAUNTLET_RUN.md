@@ -16,6 +16,8 @@ This Gauntlet run records the Hoxline-side bridge for HO-DET-001. It evaluates r
 
 Hoxline is not proof authority. Claim Firewall is an internal Hoxline Claim Authority capability. The proof record in `hawkinsoperations-proof` remains the authority source for proof status.
 
+This is the default reviewer/demo path for Hoxline by HawkinsOperations. It shows one artifact, the full Hoxline loop, one ProofCard reference, one safe claim, blocked stronger claims, the missing evidence list, proof ceiling, runtime boundary, signal boundary, and human review boundary.
+
 ## Input Facts
 
 | Field | Value |
@@ -47,7 +49,7 @@ Hoxline is not proof authority. Claim Firewall is an internal Hoxline Claim Auth
 
 Input:
 
-> HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 Decision: allowed
 
@@ -64,6 +66,7 @@ Each blocked family requires additional evidence and human review before promoti
 | does not claim signal observed | blocked |
 | does not claim public-safe | blocked |
 | does not claim production-ready | blocked |
+| does not claim production ready | blocked |
 | does not claim SOCaaS-ready | blocked |
 | does not claim SOCaaS deployed | blocked |
 | does not claim customer deployed | blocked |
@@ -77,6 +80,7 @@ Each blocked family requires additional evidence and human review before promoti
 | does not claim case closure | blocked |
 | does not claim final authorization or final human authorization | blocked |
 | does not claim public runtime proof | blocked |
+| does not claim public-safe runtime proof | blocked |
 | does not claim public signal proof | blocked |
 
 ## Output
@@ -84,6 +88,19 @@ Each blocked family requires additional evidence and human review before promoti
 - `examples/gauntlet/ho-det-001-proofcard-v0.json`
 - `examples/gauntlet/ho-det-001-evidence-graph-v0.json`
 - `examples/gauntlet/ho-det-001-promotion-state-v0.json`
+- `examples/gauntlet/ho-det-001-full-loop-run-v0.json`
+- `examples/gauntlet/ho-det-001-full-loop-run-v0.md`
+
+## Missing Evidence
+
+- `analyst_review_record`
+- `customer_deployment_evidence`
+- `final_authorization_record`
+- `human_review_gate_complete`
+- `public_safe_authorization`
+- `runtime_evidence`
+- `service_deployment_evidence`
+- `signal_observation_evidence`
 
 ## Boundary
 

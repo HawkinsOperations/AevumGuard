@@ -18,7 +18,7 @@ Hoxline controls what AI-assisted security work is allowed to become. Controlled
 
 | Claim | Decision | Reason |
 | --- | --- | --- |
-| HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review. | Allowed | The artifact has controlled fixture validation and remains bounded by CONTROLLED_TEST_VALIDATED. |
+| HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling. | Allowed | The artifact has controlled fixture validation and remains bounded by CONTROLLED_TEST_VALIDATED. |
 
 ## Blocked Claim Families
 
@@ -29,6 +29,7 @@ Hoxline controls what AI-assisted security work is allowed to become. Controlled
 | This table does not claim signal observed status. | Blocked | Preserved signal observation evidence tied to HO-DET-001. |
 | This table does not claim public-safe proof. | Blocked | Separate public wording, privacy, stale-evidence, evidence-link, and approval review. |
 | This table does not claim production-ready status. | Blocked | Runtime evidence, signal evidence, deployment evidence, and completed review. |
+| This table does not claim production ready status. | Blocked | Runtime evidence, signal evidence, deployment evidence, and completed review. |
 | This table does not claim SOCaaS-ready status. | Blocked | Service readiness review and human authorization. |
 | This table does not claim SOCaaS deployed status. | Blocked | Service deployment evidence and public claim authorization. |
 | This table does not claim customer deployed status. | Blocked | Customer deployment evidence and approved public wording. |
@@ -40,8 +41,11 @@ Hoxline controls what AI-assisted security work is allowed to become. Controlled
 | This table does not claim AI approved disposition. | Blocked | AI is not claim or disposition authority; human review evidence is required. |
 | This table does not claim analyst approved disposition. | Blocked | Explicit analyst review record. |
 | This table does not claim final human authorization. | Blocked | Explicit final authorization record. |
+| This table does not claim final authorization. | Blocked | Explicit final authorization record. |
 | This table does not claim case closed status. | Blocked | Case closure record and completed human review gate. |
+| This table does not claim case closure. | Blocked | Case closure record and completed human review gate. |
 | This table does not claim public runtime proof. | Blocked | Runtime evidence and public release authorization. |
+| This table does not claim public-safe runtime proof. | Blocked | Runtime evidence and public release authorization. |
 | This table does not claim public signal proof. | Blocked | Signal observation evidence and public release authorization. |
 | This table does not claim enterprise purchase intent. | Blocked | Separate business evidence and approved language. |
 | This table does not claim customer traction. | Blocked | Separate customer evidence and approved language. |

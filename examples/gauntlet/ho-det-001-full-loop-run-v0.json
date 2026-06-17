@@ -114,7 +114,7 @@
     }
   ],
   "allowed_claims": [
-    "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review."
+    "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
   ],
   "blocked_claims": [
     {
@@ -135,7 +135,7 @@
         "runtime_evidence",
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "runtime proof is not asserted"
     },
     {
       "claim": "signal observed",
@@ -165,7 +165,18 @@
         "signal_observation_evidence",
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "production readiness is not asserted"
+    },
+    {
+      "claim": "production ready",
+      "status": "BLOCKED",
+      "reason": "Requires runtime, signal, deployment, and completed review evidence.",
+      "required_evidence": [
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "production readiness is not asserted"
     },
     {
       "claim": "SOCaaS-ready",
@@ -175,7 +186,7 @@
         "service_readiness_review",
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "SOCaaS readiness is not asserted"
     },
     {
       "claim": "SOCaaS deployed",
@@ -185,7 +196,7 @@
         "service_deployment_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "SOCaaS deployment is not asserted"
     },
     {
       "claim": "customer deployed",
@@ -195,7 +206,7 @@
         "customer_deployment_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "customer deployment is not asserted"
     },
     {
       "claim": "AI approved",
@@ -204,7 +215,7 @@
       "required_evidence": [
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "AI-approved disposition is not asserted"
     },
     {
       "claim": "analyst approved",
@@ -213,7 +224,7 @@
       "required_evidence": [
         "analyst_review_record"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "analyst-approved disposition is not asserted"
     },
     {
       "claim": "final human authorization",
@@ -222,7 +233,16 @@
       "required_evidence": [
         "final_authorization_record"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "final authorization is not asserted"
+    },
+    {
+      "claim": "final authorization",
+      "status": "BLOCKED",
+      "reason": "Requires explicit final authorization record.",
+      "required_evidence": [
+        "final_authorization_record"
+      ],
+      "safer_wording": "final authorization is not asserted"
     },
     {
       "claim": "case closed",
@@ -232,7 +252,17 @@
         "case_closure_record",
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "case closure",
+      "status": "BLOCKED",
+      "reason": "Requires explicit case-closure authority outside this bridge.",
+      "required_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "case closure is not asserted"
     },
     {
       "claim": "public runtime proof",
@@ -242,7 +272,17 @@
         "runtime_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "public runtime proof is not asserted"
+    },
+    {
+      "claim": "public-safe runtime proof",
+      "status": "BLOCKED",
+      "reason": "Requires public-safe runtime evidence linkage and approval.",
+      "required_evidence": [
+        "runtime_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "public-safe runtime proof is not asserted"
     },
     {
       "claim": "public signal proof",
@@ -252,7 +292,7 @@
         "signal_observation_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "public signal proof is not asserted"
     },
     {
       "claim": "revenue",
@@ -292,7 +332,7 @@
         "aws_runtime_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "AWS runtime evidence is not asserted"
     },
     {
       "claim": "Cribl routed live telemetry",
@@ -302,7 +342,7 @@
         "route_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "route evidence is not asserted"
     },
     {
       "claim": "Wazuh routed live telemetry",
@@ -312,7 +352,7 @@
         "route_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "route evidence is not asserted"
     },
     {
       "claim": "autonomous SOC",
@@ -322,7 +362,7 @@
         "operations_authority_evidence",
         "human_review_gate_complete"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "autonomous SOC operation is not asserted"
     },
     {
       "claim": "live Splunk fired",
@@ -332,7 +372,7 @@
         "live_siem_evidence",
         "public_safe_authorization"
       ],
-      "safer_wording": "claim is not asserted"
+      "safer_wording": "live SIEM evidence is not asserted"
     },
     {
       "claim": "public-safe",
@@ -372,7 +412,7 @@
     "hawkinsoperations-validation/validation/successor/ho-det-001/validation-cases.json",
     "hawkinsoperations-platform/contracts/examples/ho-det-001-runtime-contract.sample.json"
   ],
-  "reviewer_summary": "Generated 2026-06-15T01:06:31+00:00. HO-DET-001 remains bounded to CONTROLLED_TEST_VALIDATED with public_safe=false and human_review_required=true. The only allowed claim is controlled-validation wording. Runtime, signal, public release, service, business, legal, approval, and case-disposition claims remain blocked until their required evidence and review records exist.",
+  "reviewer_summary": "Generated 2026-06-17T00:02:19+00:00. HO-DET-001 remains bounded to CONTROLLED_TEST_VALIDATED with public_safe=false and human_review_required=true. The only allowed claim is controlled-validation wording. Runtime, signal, public release, service, business, legal, approval, and case-disposition claims remain blocked until their required evidence and review records exist.",
   "non_claims": [
     "runtime truth",
     "signal truth",

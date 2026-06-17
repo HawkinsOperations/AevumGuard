@@ -30,34 +30,38 @@ Human review required: `true`
 
 ## Allowed Claim
 
-- HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+- HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 ## Blocked Claim Boundaries
 
 The runner records blocked claim families as boundaries. It does not promote them.
 
 - This run does not claim runtime-active. Safer wording: controlled validation evidence remains under review.
-- This run does not claim runtime proven. Safer wording: claim is not asserted.
+- This run does not claim runtime proven. Safer wording: runtime proof is not asserted.
 - This run does not claim signal observed. Safer wording: signal evidence is not asserted.
 - This run does not claim public-safe proof. Safer wording: public release status is not asserted.
-- This run does not claim production-ready. Safer wording: claim is not asserted.
-- This run does not claim SOCaaS-ready. Safer wording: claim is not asserted.
-- This run does not claim SOCaaS deployed. Safer wording: claim is not asserted.
-- This run does not claim customer deployed. Safer wording: claim is not asserted.
-- This run does not claim AI approved. Safer wording: claim is not asserted.
-- This run does not claim analyst approved. Safer wording: claim is not asserted.
-- This run does not claim final authorization or final human authorization. Safer wording: claim is not asserted.
-- This run does not claim case-closure wording. Safer wording: claim is not asserted.
-- This run does not claim public runtime proof. Safer wording: claim is not asserted.
-- This run does not claim public signal proof. Safer wording: claim is not asserted.
+- This run does not claim production-ready. Safer wording: production readiness is not asserted.
+- This run does not claim production ready. Safer wording: production readiness is not asserted.
+- This run does not claim SOCaaS-ready. Safer wording: SOCaaS readiness is not asserted.
+- This run does not claim SOCaaS deployed. Safer wording: SOCaaS deployment is not asserted.
+- This run does not claim customer deployed. Safer wording: customer deployment is not asserted.
+- This run does not claim AI approved. Safer wording: AI-approved disposition is not asserted.
+- This run does not claim analyst approved. Safer wording: analyst-approved disposition is not asserted.
+- This run does not claim final authorization or final human authorization. Safer wording: final authorization is not asserted.
+- This run does not claim final authorization. Safer wording: final authorization is not asserted.
+- This run does not claim case-closure wording. Safer wording: case closure is not asserted.
+- This run does not claim case closure. Safer wording: case closure is not asserted.
+- This run does not claim public runtime proof. Safer wording: public runtime proof is not asserted.
+- This run does not claim public-safe runtime proof. Safer wording: public-safe runtime proof is not asserted.
+- This run does not claim public signal proof. Safer wording: public signal proof is not asserted.
 - This run does not claim revenue. Safer wording: business outcome evidence is not asserted.
 - This run does not claim legal availability. Safer wording: legal availability is not asserted.
 - This run does not claim product-market fit. Safer wording: market-fit evidence is not asserted.
-- This run does not claim AWS-live. Safer wording: claim is not asserted.
-- This run does not claim Cribl routed live telemetry. Safer wording: claim is not asserted.
-- This run does not claim Wazuh routed live telemetry. Safer wording: claim is not asserted.
-- This run does not claim autonomous SOC. Safer wording: claim is not asserted.
-- This run does not claim live Splunk fired. Safer wording: claim is not asserted.
+- This run does not claim AWS-live. Safer wording: AWS runtime evidence is not asserted.
+- This run does not claim Cribl routed live telemetry. Safer wording: route evidence is not asserted.
+- This run does not claim Wazuh routed live telemetry. Safer wording: route evidence is not asserted.
+- This run does not claim autonomous SOC. Safer wording: autonomous SOC operation is not asserted.
+- This run does not claim live Splunk fired. Safer wording: live SIEM evidence is not asserted.
 - This run does not claim public-safe. Safer wording: public release status is not asserted.
 
 ## Missing Evidence
@@ -116,4 +120,4 @@ The runner records blocked claim families as boundaries. It does not promote the
 
 ## Reviewer Summary
 
-Generated 2026-06-15T01:06:32+00:00. HO-DET-001 remains bounded to CONTROLLED_TEST_VALIDATED with public_safe=false and human_review_required=true. The only allowed claim is controlled-validation wording. Runtime, signal, public release, service, business, legal, approval, and case-disposition claims remain blocked until their required evidence and review records exist.
+Generated 2026-06-17T00:02:19+00:00. HO-DET-001 remains bounded to CONTROLLED_TEST_VALIDATED with public_safe=false and human_review_required=true. The only allowed claim is controlled-validation wording. Runtime, signal, public release, service, business, legal, approval, and case-disposition claims remain blocked until their required evidence and review records exist.

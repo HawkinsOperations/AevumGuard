@@ -56,7 +56,7 @@ Authority sources are path references only. This Hoxline file does not copy or r
 
 ## Allowed Claim
 
-HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 ## Claim Decision
 

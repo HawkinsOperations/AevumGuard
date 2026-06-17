@@ -16,7 +16,7 @@ Hoxline can run the HO-DET-001 ProofOps loop, emit reviewer-readable JSON, emit 
 
 Safe claim:
 
-> HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 ## What Outputs Exist
 

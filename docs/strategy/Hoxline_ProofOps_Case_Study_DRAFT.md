@@ -48,7 +48,7 @@ HO-DET-001 is the controlled-validation example:
 
 Allowed demo wording:
 
-> HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 ## What Hoxline Shows
 

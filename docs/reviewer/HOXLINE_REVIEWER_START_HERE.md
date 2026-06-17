@@ -12,15 +12,17 @@ human_review_required: true
 
 Start with these files:
 
-1. `docs/demo/HOXLINE_CONTROLLED_DEMO_V0.md`
-2. `docs/demo/HO_DET_001_WALKTHROUGH.md`
-3. `docs/demo/CLAIM_DECISION_TABLE.md`
-4. `docs/releases/HOXLINE_PR7_PR8_PR63_RELEASE_PACKET.md`
+1. `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`
+2. `examples/gauntlet/ho-det-001-full-loop-run-v0.json`
+3. `examples/gauntlet/ho-det-001-full-loop-run-v0.md`
+4. `examples/gauntlet/ho-det-001-proofcard-v0.json`
 5. `docs/proofcards/HO-DET-001_PROOFCARD_V0.md`
-6. `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`
-7. `examples/gauntlet/ho-det-001-proofcard-v0.json`
-8. `docs/strategy/README.md`
-9. Website route: `/hoxline/`
+6. `docs/demo/HOXLINE_CONTROLLED_DEMO_V0.md`
+7. `docs/demo/HO_DET_001_WALKTHROUGH.md`
+8. `docs/demo/CLAIM_DECISION_TABLE.md`
+9. `docs/releases/HOXLINE_PR7_PR8_PR63_RELEASE_PACKET.md`
+10. `docs/strategy/README.md`
+11. Website route: `/hoxline/`
 
 ## Hoxline Product Loop
 
@@ -41,6 +43,12 @@ The current loop is:
 11. Safe Claim / Blocked Claim
 
 One artifact, one loop, one ProofCard, one safe claim, one blocked claim.
+
+Default safe claim:
+
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+
+The default Gauntlet output shows blocked stronger claims, the missing evidence list, proof ceiling, runtime boundary, signal boundary, and human review boundary.
 
 ## HO-DET-001 Bridge Artifacts
 
