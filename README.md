@@ -1,4 +1,4 @@
-# Hoxline
+# Hoxline by HawkinsOperations
 
 Hoxline is a proof-bound claim control system for AI-assisted security work.
 
@@ -6,7 +6,7 @@ Hoxline by HawkinsOperations is the product name for the current product/front-d
 
 Current repo: HawkinsOperations/hoxline. Product name: Hoxline by HawkinsOperations.
 
-Local/package/schema references to `aevumguard` remain compatibility naming until a separate migration is approved. They do not define the current product/front-door identity.
+AevumGuard/aevumguard remains compatibility naming until separate migration approval. It does not define current product/front-door identity.
 
 Hoxline governs how AI-assisted security work becomes tested, reviewed, blocked, or safe to claim.
 
@@ -29,6 +29,24 @@ AI-assisted security work
 → Safe Claim / Blocked Claim
 
 The product spine in this repository defines the boundary, module map, doctrine, gauntlet, schemas, and examples for that loop. It does not create runtime proof, signal proof, final authorization, or external claims.
+
+## Default Reviewer/Demo Path
+
+The default reviewer and demo path is the HO-DET-001 Gauntlet:
+
+1. `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`
+2. `examples/gauntlet/ho-det-001-full-loop-run-v0.json`
+3. `examples/gauntlet/ho-det-001-full-loop-run-v0.md`
+4. `examples/gauntlet/ho-det-001-proofcard-v0.json`
+5. `docs/proofcards/HO-DET-001_PROOFCARD_V0.md`
+
+This path shows one artifact, the full Hoxline loop, one ProofCard reference, one safe claim, blocked stronger claims, the missing evidence list, proof ceiling, runtime boundary, signal boundary, and human review boundary.
+
+Safe claim:
+
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+
+This path does not claim production ready, runtime proven, signal observed, customer deployed, SOCaaS deployed, public-safe runtime proof, AI approved, analyst approved, final authorization, or case closure.
 
 ## Claim Firewall
 
@@ -57,11 +75,12 @@ No eighth repository is part of this product spine. Hoxline modules are internal
 ## Current Contents
 
 * `PRODUCT_BOUNDARY.md` defines what Hoxline owns and does not own.
-* `docs/product/AEVUMGUARD_BLUEPRINT.md` describes the v0 product spine.
+* `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md` is the default HO-DET-001 reviewer/demo path.
+* `docs/product/AEVUMGUARD_BLUEPRINT.md` remains a compatibility-named product-spine document.
 * `docs/product/MODULE_MAP.md` maps every loop stage to an internal module responsibility.
 * `docs/product/SEVEN_REPO_SYSTEM_MAP.md` preserves the seven-repo system boundary.
 * `docs/product/PROOFOPS_DOCTRINE.md` states the evidence-first doctrine.
-* `docs/gauntlet/AEVUMGUARD_GAUNTLET_V0.md` walks one artifact through the full loop.
+* `docs/gauntlet/AEVUMGUARD_GAUNTLET_V0.md` remains a compatibility-named sample; it is not the default demo path.
 * `schemas/` contains v0 JSON shapes for promotion state and evidence graph records.
 * `examples/gauntlet/` contains sample JSON records with runtime observation, signal observation, and public safety status unset.
 

@@ -6,7 +6,7 @@ Hoxline by HawkinsOperations is the product name for the current product/front-d
 
 Current repo: HawkinsOperations/hoxline. Product name: Hoxline by HawkinsOperations.
 
-Local/package/schema references to `aevumguard` remain compatibility naming until a separate migration is approved. They do not define the current product/front-door identity.
+AevumGuard/aevumguard remains compatibility naming until separate migration approval. It does not define current product/front-door identity.
 
 Hoxline governs how AI-assisted security work becomes tested, reviewed, blocked, or safe to claim.
 
@@ -59,6 +59,18 @@ Hoxline does not own:
 Claim Firewall is the first Claim Authority enforcement capability inside Hoxline. It is not the product.
 
 Claim Firewall can block, constrain, or require edits to a claim when the evidence graph, promotion state, ProofCard, or review gate does not support the claim. It does not replace the product spine or authorize claims by itself.
+
+## Default Demo Boundary
+
+The default reviewer/demo path is the HO-DET-001 Gauntlet at `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`.
+
+It is bounded to one artifact, the full Hoxline loop, one ProofCard reference, one safe claim, blocked stronger claims, a missing evidence list, proof ceiling, runtime boundary, signal boundary, and human review boundary.
+
+Safe claim:
+
+> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+
+The Gauntlet does not claim production ready, runtime proven, signal observed, customer deployed, SOCaaS deployed, public-safe runtime proof, AI approved, analyst approved, final authorization, or case closure unless exact evidence exists and is approved.
 
 ## Seven-Repo Rule
 

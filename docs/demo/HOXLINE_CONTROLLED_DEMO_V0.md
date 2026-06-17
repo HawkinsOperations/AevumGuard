@@ -10,7 +10,7 @@ human_review_required: true
 
 ## Purpose
 
-This package gives reviewers a bounded walkthrough of the existing HO-DET-001 Hoxline ProofCard / Gauntlet bridge. It packages already-merged reviewer material into a controlled demo that can be inspected and discussed without promoting stronger claims.
+This package supports the default HO-DET-001 Gauntlet reviewer/demo path. Start at `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`, then inspect the full-loop JSON, generated Markdown, ProofCard JSON, and ProofCard doc. This package gives reviewers a bounded walkthrough that can be inspected and discussed without promoting stronger claims.
 
 Hoxline controls what AI-assisted security work is allowed to become.
 
@@ -88,7 +88,7 @@ Authority source references are relative repository/path references:
 
 ## Safe Claim
 
-HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 ## Blocked Claim Boundaries
 
@@ -104,14 +104,15 @@ human_review_required remains true because controlled validation is not final ap
 
 ## Reviewer Entry Points
 
-1. `docs/demo/HOXLINE_CONTROLLED_DEMO_V0.md`
-2. `docs/demo/HO_DET_001_WALKTHROUGH.md`
-3. `docs/demo/CLAIM_DECISION_TABLE.md`
-4. `examples/demo/ho-det-001-controlled-demo-manifest.json`
-5. `examples/demo/ho-det-001-claim-decision-summary.json`
-6. `docs/proofcards/HO-DET-001_PROOFCARD_V0.md`
-7. `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`
-8. `examples/gauntlet/ho-det-001-proofcard-v0.json`
+1. `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md`
+2. `examples/gauntlet/ho-det-001-full-loop-run-v0.json`
+3. `examples/gauntlet/ho-det-001-full-loop-run-v0.md`
+4. `examples/gauntlet/ho-det-001-proofcard-v0.json`
+5. `docs/proofcards/HO-DET-001_PROOFCARD_V0.md`
+6. `docs/demo/HO_DET_001_WALKTHROUGH.md`
+7. `docs/demo/CLAIM_DECISION_TABLE.md`
+8. `examples/demo/ho-det-001-controlled-demo-manifest.json`
+9. `examples/demo/ho-det-001-claim-decision-summary.json`
 
 ## Required Evidence Before Stronger Claims
 

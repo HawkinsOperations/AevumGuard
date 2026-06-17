@@ -2,6 +2,8 @@
 
 Hoxline is the HawkinsOperations ProofOps control plane for AI-assisted security work.
 
+AevumGuard/aevumguard remains compatibility naming until separate migration approval. It does not define current product/front-door identity.
+
 Hoxline governs how AI-assisted security work becomes tested, reviewed, blocked, or safe to claim.
 
 Doctrine: AI is not the authority. Evidence is.

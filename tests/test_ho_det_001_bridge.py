@@ -60,8 +60,8 @@ class HoDet001BridgeTest(unittest.TestCase):
 
     def test_safe_controlled_validation_claim_allowed(self) -> None:
         claim = (
-            "HO-DET-001 has controlled validation evidence from controlled positive "
-            "and negative process-creation fixtures and remains under review."
+            "HO-DET-001 has controlled validation evidence under stated scope "
+            "and remains bounded by its proof ceiling."
         )
 
         report = evaluate_text(claim, self.policy, evidence_states=["controlled_test_validated"])
@@ -114,12 +114,16 @@ class HoDet001BridgeTest(unittest.TestCase):
             "signal observed",
             "public-safe",
             "production-ready",
+            "production ready",
             "SOCaaS-ready",
             "customer deployed",
             "AI approved",
             "analyst approved",
             "final human authorization",
+            "final authorization",
             "case closed",
+            "case closure",
+            "public-safe runtime proof",
         ):
             self.assertIn(claim, blocked)
 

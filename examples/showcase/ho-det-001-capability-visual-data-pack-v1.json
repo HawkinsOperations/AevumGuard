@@ -12,7 +12,7 @@
   "proof_ceiling": "CONTROLLED_TEST_VALIDATED",
   "public_safe": false,
   "human_review_required": true,
-  "current_safe_claim": "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.",
+  "current_safe_claim": "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.",
   "executive_summary": "Hoxline can run the HO-DET-001 ProofOps loop, package reviewer-readable outputs, verify the output contract, preserve the controlled-validation proof ceiling, and keep stronger claims gated when evidence is missing.",
   "positive_capabilities": [
     {
@@ -698,7 +698,7 @@
         "category": "allowed controlled claim",
         "count": 1,
         "examples": [
-          "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review."
+          "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
         ],
         "status": "allowed"
       },

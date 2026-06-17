@@ -101,7 +101,7 @@ Inspect:
 
 Safe claim:
 
-HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.
+HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
 
 Blocked claim boundary:
 

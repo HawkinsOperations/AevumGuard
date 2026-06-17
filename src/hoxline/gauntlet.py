@@ -31,8 +31,8 @@ VALID_STAGE_STATUSES = {
 }
 
 SAFE_CLAIM = (
-    "HO-DET-001 has controlled validation evidence from controlled positive "
-    "and negative process-creation fixtures and remains under review."
+    "HO-DET-001 has controlled validation evidence under stated scope "
+    "and remains bounded by its proof ceiling."
 )
 
 REQUIRED_BLOCKED_CLAIMS = [
@@ -41,14 +41,18 @@ REQUIRED_BLOCKED_CLAIMS = [
     "signal observed",
     "public-safe proof",
     "production-ready",
+    "production ready",
     "SOCaaS-ready",
     "SOCaaS deployed",
     "customer deployed",
     "AI approved",
     "analyst approved",
     "final human authorization",
+    "final authorization",
     "case closed",
+    "case closure",
     "public runtime proof",
+    "public-safe runtime proof",
     "public signal proof",
     "revenue",
     "legal availability",
@@ -60,6 +64,26 @@ ADDITIONAL_BLOCKED_CLAIMS = {
         "reason": "Requires separate public wording, privacy, evidence-link, and approval review.",
         "required_evidence": ["public_safe_authorization"],
         "safer_wording": "public release status is not asserted",
+    },
+    "production ready": {
+        "reason": "Requires runtime, signal, deployment, and completed review evidence.",
+        "required_evidence": ["runtime_evidence", "signal_observation_evidence", "human_review_gate_complete"],
+        "safer_wording": "production readiness is not asserted",
+    },
+    "final authorization": {
+        "reason": "Requires explicit final authorization record.",
+        "required_evidence": ["final_authorization_record"],
+        "safer_wording": "final authorization is not asserted",
+    },
+    "case closure": {
+        "reason": "Requires explicit case-closure authority outside this bridge.",
+        "required_evidence": ["case_closure_record", "human_review_gate_complete"],
+        "safer_wording": "case closure is not asserted",
+    },
+    "public-safe runtime proof": {
+        "reason": "Requires public-safe runtime evidence linkage and approval.",
+        "required_evidence": ["runtime_evidence", "public_safe_authorization"],
+        "safer_wording": "public-safe runtime proof is not asserted",
     },
     "revenue": {
         "reason": "Business outcome evidence is outside this controlled-validation run.",
@@ -525,7 +549,7 @@ def _blocked_claims(proofcard: dict[str, Any]) -> list[dict[str, Any]]:
             "status": "BLOCKED",
             "reason": item.get("reason", "Requires evidence outside this controlled-validation run."),
             "required_evidence": list(item.get("required_evidence", [])),
-            "safer_wording": _safer_wording(claim, proofcard),
+            "safer_wording": item.get("safer_wording") or _safer_wording(claim, proofcard),
         }
 
     for claim in REQUIRED_BLOCKED_CLAIMS:

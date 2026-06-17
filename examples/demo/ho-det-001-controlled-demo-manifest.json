@@ -7,7 +7,7 @@
   "proof_ceiling": "CONTROLLED_TEST_VALIDATED",
   "public_safe": false,
   "human_review_required": true,
-  "safe_claim": "HO-DET-001 has controlled validation evidence from controlled positive and negative process-creation fixtures and remains under review.",
+  "safe_claim": "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.",
   "blocked_claim_families": [
     "This demo does not claim runtime-active status.",
     "This demo does not claim runtime proven status.",
