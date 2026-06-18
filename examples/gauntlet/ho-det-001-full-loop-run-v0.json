@@ -114,9 +114,18 @@
     }
   ],
   "allowed_claims": [
-    "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
+    "HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review."
   ],
   "blocked_claims": [
+    {
+      "claim": "runtime active",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
     {
       "claim": "runtime-active",
       "status": "BLOCKED",
@@ -148,6 +157,15 @@
       "safer_wording": "signal evidence is not asserted"
     },
     {
+      "claim": "public-safe approved",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
       "claim": "public-safe proof",
       "status": "BLOCKED",
       "reason": "Requires separate public wording, privacy, evidence-link, and approval review.",
@@ -155,6 +173,24 @@
         "public_safe_authorization"
       ],
       "safer_wording": "public release status is not asserted"
+    },
+    {
+      "claim": "production SOC",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "SOC deployed",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "production-ready",
@@ -209,6 +245,15 @@
       "safer_wording": "customer deployment is not asserted"
     },
     {
+      "claim": "customer validated",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
       "claim": "AI approved",
       "status": "BLOCKED",
       "reason": "AI is not claim or disposition authority.",
@@ -225,6 +270,15 @@
         "analyst_review_record"
       ],
       "safer_wording": "analyst-approved disposition is not asserted"
+    },
+    {
+      "claim": "autonomous approval",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "final human authorization",
@@ -263,6 +317,33 @@
         "human_review_gate_complete"
       ],
       "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "green CI as approval",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "website rendering as proof",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "GitHub rendering as proof",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "public runtime proof",

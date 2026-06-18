@@ -59,10 +59,7 @@ class HoDet001BridgeTest(unittest.TestCase):
             self.assertFalse(data["claim_authority"]["public_safe"])
 
     def test_safe_controlled_validation_claim_allowed(self) -> None:
-        claim = (
-            "HO-DET-001 has controlled validation evidence under stated scope "
-            "and remains bounded by its proof ceiling."
-        )
+        claim = "HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review."
 
         report = evaluate_text(claim, self.policy, evidence_states=["controlled_test_validated"])
 
@@ -111,18 +108,28 @@ class HoDet001BridgeTest(unittest.TestCase):
 
         for claim in (
             "runtime-active",
+            "runtime active",
             "signal observed",
             "public-safe",
+            "public-safe approved",
+            "public-safe proof",
             "production-ready",
             "production ready",
+            "production SOC",
+            "SOC deployed",
             "SOCaaS-ready",
             "customer deployed",
+            "customer validated",
             "AI approved",
             "analyst approved",
+            "autonomous approval",
             "final human authorization",
             "final authorization",
             "case closed",
             "case closure",
+            "green CI as approval",
+            "website rendering as proof",
+            "GitHub rendering as proof",
             "public-safe runtime proof",
         ):
             self.assertIn(claim, blocked)

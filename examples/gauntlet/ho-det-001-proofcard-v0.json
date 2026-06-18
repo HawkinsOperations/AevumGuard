@@ -6,169 +6,355 @@
   "public_safe": false,
   "allowed": true,
   "allowed_claims": [
-    "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
+    "HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review."
   ],
   "blocked_claims": [
+    {
+      "claim": "runtime active",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
     {
       "claim": "runtime-active",
       "status": "BLOCKED",
       "reason": "Requires public runtime deployment or enablement evidence, currentness review, and human authorization.",
-      "required_evidence": ["runtime_deployment_evidence", "human_review_gate_complete"],
+      "required_evidence": [
+        "runtime_deployment_evidence",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "controlled validation evidence remains under review"
     },
     {
       "claim": "runtime proven",
       "status": "BLOCKED",
       "reason": "Requires runtime evidence beyond controlled fixtures.",
-      "required_evidence": ["runtime_evidence", "human_review_gate_complete"],
+      "required_evidence": [
+        "runtime_evidence",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "runtime proof is not asserted"
     },
     {
       "claim": "signal observed",
       "status": "BLOCKED",
       "reason": "Requires preserved telemetry, alert, log, or search output tied to the artifact.",
-      "required_evidence": ["signal_observation_evidence", "human_review_gate_complete"],
+      "required_evidence": [
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "signal evidence is not asserted"
     },
     {
-      "claim": "public-safe",
+      "claim": "public-safe approved",
       "status": "BLOCKED",
-      "reason": "Requires separate public wording, privacy, stale, evidence-link, and approval review.",
-      "required_evidence": ["public_safe_authorization"],
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "public-safe proof",
+      "status": "BLOCKED",
+      "reason": "Requires separate public wording, privacy, evidence-link, and approval review.",
+      "required_evidence": [
+        "public_safe_authorization"
+      ],
       "safer_wording": "public release status is not asserted"
+    },
+    {
+      "claim": "production SOC",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "SOC deployed",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "production-ready",
       "status": "BLOCKED",
       "reason": "Requires runtime, signal, deployment, and completed review evidence.",
-      "required_evidence": ["runtime_evidence", "signal_observation_evidence", "human_review_gate_complete"],
+      "required_evidence": [
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "production readiness is not asserted"
     },
     {
       "claim": "production ready",
       "status": "BLOCKED",
       "reason": "Requires runtime, signal, deployment, and completed review evidence.",
-      "required_evidence": ["runtime_evidence", "signal_observation_evidence", "human_review_gate_complete"],
+      "required_evidence": [
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "production readiness is not asserted"
     },
     {
       "claim": "SOCaaS-ready",
       "status": "BLOCKED",
       "reason": "Requires separate service readiness, deployment, and public claim authorization.",
-      "required_evidence": ["service_readiness_review", "human_review_gate_complete"],
+      "required_evidence": [
+        "service_readiness_review",
+        "human_review_gate_complete"
+      ],
       "safer_wording": "SOCaaS readiness is not asserted"
     },
     {
       "claim": "SOCaaS deployed",
       "status": "BLOCKED",
       "reason": "Requires deployment evidence and customer-safe authorization.",
-      "required_evidence": ["service_deployment_evidence", "public_safe_authorization"],
+      "required_evidence": [
+        "service_deployment_evidence",
+        "public_safe_authorization"
+      ],
       "safer_wording": "SOCaaS deployment is not asserted"
     },
     {
       "claim": "customer deployed",
       "status": "BLOCKED",
       "reason": "Requires customer deployment evidence and approved public wording.",
-      "required_evidence": ["customer_deployment_evidence", "public_safe_authorization"],
+      "required_evidence": [
+        "customer_deployment_evidence",
+        "public_safe_authorization"
+      ],
       "safer_wording": "customer deployment is not asserted"
     },
     {
-      "claim": "live Splunk fired",
+      "claim": "customer validated",
       "status": "BLOCKED",
-      "reason": "Requires preserved live Splunk evidence approved for public use.",
-      "required_evidence": ["live_siem_evidence", "public_safe_authorization"],
-      "safer_wording": "live SIEM evidence is not asserted"
-    },
-    {
-      "claim": "Cribl routed live telemetry",
-      "status": "BLOCKED",
-      "reason": "Requires preserved route evidence approved for public use.",
-      "required_evidence": ["route_evidence", "public_safe_authorization"],
-      "safer_wording": "route evidence is not asserted"
-    },
-    {
-      "claim": "Wazuh routed live telemetry",
-      "status": "BLOCKED",
-      "reason": "Requires preserved route evidence approved for public use.",
-      "required_evidence": ["route_evidence", "public_safe_authorization"],
-      "safer_wording": "route evidence is not asserted"
-    },
-    {
-      "claim": "AWS-live",
-      "status": "BLOCKED",
-      "reason": "Requires AWS runtime evidence and public claim authorization.",
-      "required_evidence": ["aws_runtime_evidence", "public_safe_authorization"],
-      "safer_wording": "AWS runtime evidence is not asserted"
-    },
-    {
-      "claim": "autonomous SOC",
-      "status": "BLOCKED",
-      "reason": "Requires governed operational authority evidence beyond controlled validation.",
-      "required_evidence": ["operations_authority_evidence", "human_review_gate_complete"],
-      "safer_wording": "autonomous SOC operation is not asserted"
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "AI approved",
       "status": "BLOCKED",
       "reason": "AI is not claim or disposition authority.",
-      "required_evidence": ["human_review_gate_complete"],
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
       "safer_wording": "AI-approved disposition is not asserted"
     },
     {
       "claim": "analyst approved",
       "status": "BLOCKED",
       "reason": "Requires explicit analyst review evidence.",
-      "required_evidence": ["analyst_review_record"],
+      "required_evidence": [
+        "analyst_review_record"
+      ],
       "safer_wording": "analyst-approved disposition is not asserted"
     },
     {
-      "claim": "case closed",
+      "claim": "autonomous approval",
       "status": "BLOCKED",
-      "reason": "Requires explicit case-closure authority outside this bridge.",
-      "required_evidence": ["case_closure_record", "human_review_gate_complete"],
-      "safer_wording": "case closure is not asserted"
-    },
-    {
-      "claim": "case closure",
-      "status": "BLOCKED",
-      "reason": "Requires explicit case-closure authority outside this bridge.",
-      "required_evidence": ["case_closure_record", "human_review_gate_complete"],
-      "safer_wording": "case closure is not asserted"
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "final human authorization",
       "status": "BLOCKED",
       "reason": "Requires explicit final authorization record.",
-      "required_evidence": ["final_authorization_record"],
+      "required_evidence": [
+        "final_authorization_record"
+      ],
       "safer_wording": "final authorization is not asserted"
     },
     {
       "claim": "final authorization",
       "status": "BLOCKED",
       "reason": "Requires explicit final authorization record.",
-      "required_evidence": ["final_authorization_record"],
+      "required_evidence": [
+        "final_authorization_record"
+      ],
       "safer_wording": "final authorization is not asserted"
+    },
+    {
+      "claim": "case closed",
+      "status": "BLOCKED",
+      "reason": "Requires explicit case-closure authority outside this bridge.",
+      "required_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "case closure",
+      "status": "BLOCKED",
+      "reason": "Requires explicit case-closure authority outside this bridge.",
+      "required_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "green CI as approval",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "website rendering as proof",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
+    },
+    {
+      "claim": "GitHub rendering as proof",
+      "status": "BLOCKED",
+      "reason": "Requires evidence outside this controlled-validation run.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "claim is not asserted"
     },
     {
       "claim": "public runtime proof",
       "status": "BLOCKED",
       "reason": "Requires public-safe runtime evidence linkage.",
-      "required_evidence": ["runtime_evidence", "public_safe_authorization"],
+      "required_evidence": [
+        "runtime_evidence",
+        "public_safe_authorization"
+      ],
       "safer_wording": "public runtime proof is not asserted"
     },
     {
       "claim": "public-safe runtime proof",
       "status": "BLOCKED",
       "reason": "Requires public-safe runtime evidence linkage and approval.",
-      "required_evidence": ["runtime_evidence", "public_safe_authorization"],
+      "required_evidence": [
+        "runtime_evidence",
+        "public_safe_authorization"
+      ],
       "safer_wording": "public-safe runtime proof is not asserted"
     },
     {
       "claim": "public signal proof",
       "status": "BLOCKED",
       "reason": "Requires public-safe signal evidence linkage.",
-      "required_evidence": ["signal_observation_evidence", "public_safe_authorization"],
+      "required_evidence": [
+        "signal_observation_evidence",
+        "public_safe_authorization"
+      ],
       "safer_wording": "public signal proof is not asserted"
+    },
+    {
+      "claim": "revenue",
+      "status": "BLOCKED",
+      "reason": "Business outcome evidence is outside this controlled-validation run.",
+      "required_evidence": [
+        "business_evidence_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "business outcome evidence is not asserted"
+    },
+    {
+      "claim": "legal availability",
+      "status": "BLOCKED",
+      "reason": "Legal availability requires separate legal review and authorization.",
+      "required_evidence": [
+        "legal_review_record",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "legal availability is not asserted"
+    },
+    {
+      "claim": "product-market fit",
+      "status": "BLOCKED",
+      "reason": "Market-fit evidence is outside this controlled-validation run.",
+      "required_evidence": [
+        "business_evidence_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "market-fit evidence is not asserted"
+    },
+    {
+      "claim": "AWS-live",
+      "status": "BLOCKED",
+      "reason": "Requires AWS runtime evidence and public claim authorization.",
+      "required_evidence": [
+        "aws_runtime_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "AWS runtime evidence is not asserted"
+    },
+    {
+      "claim": "Cribl routed live telemetry",
+      "status": "BLOCKED",
+      "reason": "Requires preserved route evidence approved for public use.",
+      "required_evidence": [
+        "route_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "route evidence is not asserted"
+    },
+    {
+      "claim": "Wazuh routed live telemetry",
+      "status": "BLOCKED",
+      "reason": "Requires preserved route evidence approved for public use.",
+      "required_evidence": [
+        "route_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "route evidence is not asserted"
+    },
+    {
+      "claim": "autonomous SOC",
+      "status": "BLOCKED",
+      "reason": "Requires governed operational authority evidence beyond controlled validation.",
+      "required_evidence": [
+        "operations_authority_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "autonomous SOC operation is not asserted"
+    },
+    {
+      "claim": "live Splunk fired",
+      "status": "BLOCKED",
+      "reason": "Requires preserved live Splunk evidence approved for public use.",
+      "required_evidence": [
+        "live_siem_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "live SIEM evidence is not asserted"
+    },
+    {
+      "claim": "public-safe",
+      "status": "BLOCKED",
+      "reason": "Requires separate public wording, privacy, stale, evidence-link, and approval review.",
+      "required_evidence": [
+        "public_safe_authorization"
+      ],
+      "safer_wording": "public release status is not asserted"
     }
   ],
   "safer_suggestions": [

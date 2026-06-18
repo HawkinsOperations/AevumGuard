@@ -3,45 +3,375 @@
   "decision_id": "ho-det-001-claim-decision-v1",
   "detection_id": "HO-DET-001",
   "artifact_id": "HO-DET-001",
-  "source_owner": "hawkinsoperations-detections",
-  "validation_owner": "hawkinsoperations-validation",
-  "platform_owner": "hawkinsoperations-platform",
-  "proof_owner": "hawkinsoperations-proof",
-  "website_boundary": {
-    "mode": "rendering-only",
-    "may_authorize_claims": false
-  },
   "proof_ceiling": "CONTROLLED_TEST_VALIDATED",
+  "proof_ceiling_meaning": "CONTROLLED_VALIDATION_ONLY",
+  "review_lane": "PUBLIC_SAFE_CANDIDATE_REVIEW_V1",
+  "review_version": "v1",
+  "privacy_review": "PENDING",
+  "stale_review": "PENDING",
+  "evidence_linkage_review": "PENDING",
+  "wording_approval": "PENDING",
   "public_safe": false,
-  "public_safe_status": "blocked",
+  "public_safe_status": "NOT_PUBLIC_SAFE",
+  "runtime_active": false,
+  "signal_observed": false,
   "human_review_required": true,
   "allowed_claims": [
-    "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
+    "HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review."
   ],
   "blocked_claims": [
-    {"claim": "runtime proven", "status": "BLOCKED", "missing_evidence": ["runtime_evidence", "human_review_gate_complete"], "safer_wording": "runtime proof is not asserted"},
-    {"claim": "signal observed", "status": "BLOCKED", "missing_evidence": ["signal_observation_evidence", "human_review_gate_complete"], "safer_wording": "signal evidence is not asserted"},
-    {"claim": "production ready", "status": "BLOCKED", "missing_evidence": ["runtime_evidence", "signal_observation_evidence", "deployment_evidence", "human_review_gate_complete"], "safer_wording": "production readiness is not asserted"},
-    {"claim": "customer deployed", "status": "BLOCKED", "missing_evidence": ["customer_deployment_evidence", "public_safe_authorization"], "safer_wording": "customer deployment is not asserted"},
-    {"claim": "SOCaaS deployed", "status": "BLOCKED", "missing_evidence": ["service_deployment_evidence", "public_safe_authorization"], "safer_wording": "SOCaaS deployment is not asserted"},
-    {"claim": "public-safe runtime proof", "status": "BLOCKED", "missing_evidence": ["runtime_evidence", "public_safe_authorization"], "safer_wording": "public-safe runtime proof is not asserted"},
-    {"claim": "AI approved", "status": "BLOCKED", "missing_evidence": ["human_review_gate_complete"], "safer_wording": "AI-approved disposition is not asserted"},
-    {"claim": "analyst approved", "status": "BLOCKED", "missing_evidence": ["analyst_review_record"], "safer_wording": "analyst-approved disposition is not asserted"},
-    {"claim": "final authorization", "status": "BLOCKED", "missing_evidence": ["final_authorization_record"], "safer_wording": "final authorization is not asserted"},
-    {"claim": "case closure", "status": "BLOCKED", "missing_evidence": ["case_closure_record", "human_review_gate_complete"], "safer_wording": "case closure is not asserted"}
+    {
+      "claim": "runtime active",
+      "status": "BLOCKED",
+      "reason": "Runtime-active status requires deployment, enablement, schedule, or backend state evidence plus review.",
+      "required_evidence": [
+        "runtime_evidence",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "runtime_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "runtime-active status is not asserted"
+    },
+    {
+      "claim": "runtime proven",
+      "status": "BLOCKED",
+      "reason": "Runtime proof requires observed runtime evidence, preserved references, and human review.",
+      "required_evidence": [
+        "runtime_evidence",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "runtime_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "runtime proof is not asserted"
+    },
+    {
+      "claim": "signal observed",
+      "status": "BLOCKED",
+      "reason": "Signal observation requires preserved telemetry, alert, log, or search output evidence.",
+      "required_evidence": [
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "signal evidence is not asserted"
+    },
+    {
+      "claim": "production ready",
+      "status": "BLOCKED",
+      "reason": "Production readiness requires runtime, signal, deployment, and completed human review evidence.",
+      "required_evidence": [
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "deployment_evidence",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "deployment_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "production readiness is not asserted"
+    },
+    {
+      "claim": "customer deployed",
+      "status": "BLOCKED",
+      "reason": "Customer deployment requires customer deployment evidence and approved public wording.",
+      "required_evidence": [
+        "customer_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "missing_evidence": [
+        "customer_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "customer deployment is not asserted"
+    },
+    {
+      "claim": "customer validated",
+      "status": "BLOCKED",
+      "reason": "Customer validation requires customer validation evidence and approved public wording.",
+      "required_evidence": [
+        "customer_validation_evidence",
+        "public_safe_authorization"
+      ],
+      "missing_evidence": [
+        "customer_validation_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "customer validation is not asserted"
+    },
+    {
+      "claim": "production SOC",
+      "status": "BLOCKED",
+      "reason": "Production SOC wording requires production deployment, runtime, signal, and completed review evidence.",
+      "required_evidence": [
+        "deployment_evidence",
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "deployment_evidence",
+        "runtime_evidence",
+        "signal_observation_evidence",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "production SOC status is not asserted"
+    },
+    {
+      "claim": "SOC deployed",
+      "status": "BLOCKED",
+      "reason": "SOC deployment requires deployment evidence and approved public wording.",
+      "required_evidence": [
+        "service_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "missing_evidence": [
+        "service_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "SOC deployment is not asserted"
+    },
+    {
+      "claim": "SOCaaS deployed",
+      "status": "BLOCKED",
+      "reason": "SOCaaS deployment requires service deployment evidence and public-safe authorization.",
+      "required_evidence": [
+        "service_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "missing_evidence": [
+        "service_deployment_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "SOCaaS deployment is not asserted"
+    },
+    {
+      "claim": "public-safe approved",
+      "status": "BLOCKED",
+      "reason": "Public-safe approval requires privacy, stale, evidence-linkage, wording, and explicit human approval records.",
+      "required_evidence": [
+        "public_safe_authorization",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "public_safe_authorization",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "public-safe approval is not asserted"
+    },
+    {
+      "claim": "public-safe proof",
+      "status": "BLOCKED",
+      "reason": "Public-safe proof requires approved public-safe evidence linkage and explicit authorization.",
+      "required_evidence": [
+        "public_safe_authorization",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "public_safe_authorization",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "public-safe proof is not asserted"
+    },
+    {
+      "claim": "public-safe runtime proof",
+      "status": "BLOCKED",
+      "reason": "Public-safe runtime proof requires runtime evidence and explicit public-safe authorization.",
+      "required_evidence": [
+        "runtime_evidence",
+        "public_safe_authorization"
+      ],
+      "missing_evidence": [
+        "runtime_evidence",
+        "public_safe_authorization"
+      ],
+      "safer_wording": "public-safe runtime proof is not asserted"
+    },
+    {
+      "claim": "AI approved",
+      "status": "BLOCKED",
+      "reason": "AI is not claim or disposition authority.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "AI-approved disposition is not asserted"
+    },
+    {
+      "claim": "analyst approved",
+      "status": "BLOCKED",
+      "reason": "Analyst approval requires explicit analyst review evidence.",
+      "required_evidence": [
+        "analyst_review_record"
+      ],
+      "missing_evidence": [
+        "analyst_review_record"
+      ],
+      "safer_wording": "analyst-approved disposition is not asserted"
+    },
+    {
+      "claim": "autonomous approval",
+      "status": "BLOCKED",
+      "reason": "Autonomous approval is not claim authority and requires explicit human review.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "autonomous approval is not asserted"
+    },
+    {
+      "claim": "final human authorization",
+      "status": "BLOCKED",
+      "reason": "Final human authorization requires an explicit final human authorization record.",
+      "required_evidence": [
+        "final_authorization_record"
+      ],
+      "missing_evidence": [
+        "final_authorization_record"
+      ],
+      "safer_wording": "final human authorization is not asserted"
+    },
+    {
+      "claim": "final authorization",
+      "status": "BLOCKED",
+      "reason": "Final authorization requires an explicit final authorization record.",
+      "required_evidence": [
+        "final_authorization_record"
+      ],
+      "missing_evidence": [
+        "final_authorization_record"
+      ],
+      "safer_wording": "final authorization is not asserted"
+    },
+    {
+      "claim": "case closed",
+      "status": "BLOCKED",
+      "reason": "Case-closed wording requires explicit case-closure authority outside this Gauntlet run.",
+      "required_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "case closure",
+      "status": "BLOCKED",
+      "reason": "Case closure requires explicit case-closure authority outside this Gauntlet run.",
+      "required_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "case_closure_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "case closure is not asserted"
+    },
+    {
+      "claim": "green CI as approval",
+      "status": "BLOCKED",
+      "reason": "CI can check files but cannot approve public-safe, runtime, signal, or claim authority state.",
+      "required_evidence": [
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "green CI is not approval"
+    },
+    {
+      "claim": "website rendering as proof",
+      "status": "BLOCKED",
+      "reason": "Website rendering is not proof authority and cannot create public-safe, runtime, or signal truth.",
+      "required_evidence": [
+        "proof_authority_record",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "proof_authority_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "website rendering is not proof"
+    },
+    {
+      "claim": "GitHub rendering as proof",
+      "status": "BLOCKED",
+      "reason": "GitHub rendering displays repository content but does not approve claim authority state.",
+      "required_evidence": [
+        "proof_authority_record",
+        "human_review_gate_complete"
+      ],
+      "missing_evidence": [
+        "proof_authority_record",
+        "human_review_gate_complete"
+      ],
+      "safer_wording": "GitHub rendering is not proof"
+    }
   ],
+  "promotion_blockers": [
+    "privacy_review_pending",
+    "stale_review_pending",
+    "evidence_linkage_review_pending",
+    "wording_approval_pending",
+    "human_review_required",
+    "proof_ceiling_controlled_validation_only"
+  ],
+  "proof_packet_reference": {
+    "repo": "hawkinsoperations-proof",
+    "pr": "HawkinsOperations/hawkinsoperations-proof#82",
+    "merge_commit": "68798e43855e34a15df06d9a2bc9d6ac71d6746d",
+    "packet_path": "proof/records/HO-DET-001-PUBLIC-SAFE-CANDIDATE-REVIEW-V1.md",
+    "status_index_path": "proof/indexes/DETECTION_PROOF_STATUS_INDEX.yml"
+  },
+  "platform_contract_reference": {
+    "repo": "hawkinsoperations-platform",
+    "pr": "HawkinsOperations/hawkinsoperations-platform#64",
+    "merge_commit": "c49a95e2b9f2e6b5fa118c03dfc68f8827981c82",
+    "contract_path": "contracts/public-status-source-contract-v1.json",
+    "verifier_path": "scripts/verify-public-status-source-contract.py",
+    "proof_ceiling": "CONTROLLED_VALIDATION_ONLY"
+  },
+  "last_reviewed_at": "2026-06-16T22:06:47.5510594-05:00",
   "missing_evidence": [
     "analyst_review_record",
     "case_closure_record",
     "customer_deployment_evidence",
+    "customer_validation_evidence",
     "deployment_evidence",
     "final_authorization_record",
     "human_review_gate_complete",
+    "proof_authority_record",
     "public_safe_authorization",
     "runtime_evidence",
     "service_deployment_evidence",
     "signal_observation_evidence"
   ],
   "next_gate": "human_review_gate",
-  "safer_wording": "HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling."
+  "safer_wording": "HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review.",
+  "source_owner": "hawkinsoperations-detections",
+  "validation_owner": "hawkinsoperations-validation",
+  "platform_owner": "hawkinsoperations-platform",
+  "proof_owner": "hawkinsoperations-proof",
+  "website_boundary": {
+    "mode": "rendering-only",
+    "may_authorize_claims": false,
+    "note": "The website may render approved records but cannot create proof, public-safe status, or claim authority."
+  }
 }

@@ -51,5 +51,43 @@
       "Public-safe claim remains blocked.",
       "Human review is required before stronger claims."
     ]
+  },
+  "candidate_review": {
+    "review_lane": "PUBLIC_SAFE_CANDIDATE_REVIEW_V1",
+    "review_version": "v1",
+    "privacy_review": "PENDING",
+    "stale_review": "PENDING",
+    "evidence_linkage_review": "PENDING",
+    "wording_approval": "PENDING",
+    "public_safe_status": "NOT_PUBLIC_SAFE",
+    "runtime_active": false,
+    "signal_observed": false,
+    "human_review_required": true,
+    "proof_ceiling": "CONTROLLED_TEST_VALIDATED",
+    "proof_ceiling_meaning": "CONTROLLED_VALIDATION_ONLY",
+    "promotion_blockers": [
+      "privacy_review_pending",
+      "stale_review_pending",
+      "evidence_linkage_review_pending",
+      "wording_approval_pending",
+      "human_review_required",
+      "proof_ceiling_controlled_validation_only"
+    ],
+    "proof_packet_reference": {
+      "repo": "hawkinsoperations-proof",
+      "pr": "HawkinsOperations/hawkinsoperations-proof#82",
+      "merge_commit": "68798e43855e34a15df06d9a2bc9d6ac71d6746d",
+      "packet_path": "proof/records/HO-DET-001-PUBLIC-SAFE-CANDIDATE-REVIEW-V1.md",
+      "status_index_path": "proof/indexes/DETECTION_PROOF_STATUS_INDEX.yml"
+    },
+    "platform_contract_reference": {
+      "repo": "hawkinsoperations-platform",
+      "pr": "HawkinsOperations/hawkinsoperations-platform#64",
+      "merge_commit": "c49a95e2b9f2e6b5fa118c03dfc68f8827981c82",
+      "contract_path": "contracts/public-status-source-contract-v1.json",
+      "verifier_path": "scripts/verify-public-status-source-contract.py",
+      "proof_ceiling": "CONTROLLED_VALIDATION_ONLY"
+    },
+    "last_reviewed_at": "2026-06-16T22:06:47.5510594-05:00"
   }
 }
