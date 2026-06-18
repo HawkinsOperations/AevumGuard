@@ -13,6 +13,7 @@ evidence_states:
     allowed_phrases:
       - controlled validation evidence
       - controlled positive and negative process-creation fixtures
+      - governed public-safe candidate review
     proof_ceiling: CONTROLLED_TEST_VALIDATED
     public_safe: false
   - id: controlled_validation
@@ -93,6 +94,7 @@ blocked_claims:
       - public release status not asserted
       - public release authorization not asserted
     allowed_context_patterns:
+      - '\bcontrolled validation evidence\b.*\bgoverned public[- ]safe candidate review\b'
       - '\bdoes not claim\b.*\bpublic[- ]safe\b'
       - '\bdoes not prove\b.*\bpublic[- ]safe\b'
       - '\bno\b.*\bpublic[- ]safe\b.*\bclaim\b'

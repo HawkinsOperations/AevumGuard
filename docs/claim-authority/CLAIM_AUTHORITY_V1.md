@@ -14,15 +14,19 @@ It allows the controlled-validation claim only when artifact intake is accepted,
 
 Allowed claim:
 
-> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+> HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review.
 
 ## What It Blocks
 
 It blocks stronger runtime, signal, production, customer, service, public-release, approval, authorization, and disposition wording when required structured evidence is missing.
 
+For HO-DET-001 Public-Safe Candidate Review v1, it also preserves these blockers from the merged platform/proof boundary: runtime active, runtime proven, signal observed, public-safe approved, public-safe proof, production ready, production SOC, SOC deployed, SOCaaS deployed, customer deployed, customer validated, analyst approved, AI approved, autonomous approval, final human authorization, case closed, green CI as approval, website rendering as proof, and GitHub rendering as proof.
+
+The promotion blockers remain `privacy_review_pending`, `stale_review_pending`, `evidence_linkage_review_pending`, `wording_approval_pending`, `human_review_required`, and `proof_ceiling_controlled_validation_only`.
+
 ## What It Does Not Prove
 
-It does not claim runtime truth, signal truth, public-safe status, production readiness, customer deployment, SOCaaS deployment, AI-approved disposition, analyst-approved disposition, final authorization, or case closure.
+It does not claim runtime truth, signal truth, public-safe approval, public-safe proof, production readiness, customer deployment, SOCaaS deployment, AI-approved disposition, analyst-approved disposition, final authorization, website rendering as proof, GitHub rendering as proof, green CI as approval, or case closure.
 
 ## Authority Split
 

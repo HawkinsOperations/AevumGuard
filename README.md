@@ -44,9 +44,24 @@ This path shows one artifact, the full Hoxline loop, one ProofCard reference, on
 
 Safe claim:
 
-> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+> HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review.
 
 This path does not claim production ready, runtime proven, signal observed, customer deployed, SOCaaS deployed, public-safe runtime proof, AI approved, analyst approved, final authorization, or case closure.
+
+## HO-DET-001 Public-Safe Candidate Review v1
+
+Hoxline models the merged platform/proof candidate-review state for HO-DET-001 as a bounded product loop state only:
+
+* `review_lane`: `PUBLIC_SAFE_CANDIDATE_REVIEW_V1`
+* `privacy_review`, `stale_review`, `evidence_linkage_review`, `wording_approval`: `PENDING`
+* `public_safe_status`: `NOT_PUBLIC_SAFE`
+* `runtime_active`: `false`
+* `signal_observed`: `false`
+* `human_review_required`: `true`
+* `proof_ceiling`: `CONTROLLED_TEST_VALIDATED`
+* `proof_ceiling_meaning`: `CONTROLLED_VALIDATION_ONLY`
+
+References are carried from `hawkinsoperations-platform#64` and `hawkinsoperations-proof#82`. They remain references only; Hoxline does not own platform ledger truth, proof authority, runtime truth, signal truth, website rendering authority, or final authorization. Hoxline does not claim public-safe approval.
 
 ## Claim Firewall
 

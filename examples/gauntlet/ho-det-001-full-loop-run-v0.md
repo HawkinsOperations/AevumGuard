@@ -30,7 +30,7 @@ Human review required: `true`
 
 ## Allowed Claim
 
-- HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+- HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review.
 
 ## Blocked Claim Boundaries
 

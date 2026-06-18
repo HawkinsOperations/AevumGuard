@@ -31,32 +31,69 @@ VALID_STAGE_STATUSES = {
 }
 
 SAFE_CLAIM = (
-    "HO-DET-001 has controlled validation evidence under stated scope "
-    "and remains bounded by its proof ceiling."
+    "HO-DET-001 has controlled validation evidence and remains under governed "
+    "public-safe candidate review."
 )
 
 GAUNTLET_V1_SCHEMA_ID = "https://hawkinsoperations.dev/hoxline/schemas/gauntlet-run-v1.schema.json"
 GAUNTLET_V1_TITLE = "Hoxline Gauntlet Run v1"
 CLAIM_DECISION_V1_SCHEMA_ID = "https://hawkinsoperations.dev/hoxline/schemas/claim-authority-decision-v1.schema.json"
 PROOF_CEILING_V1 = "CONTROLLED_TEST_VALIDATED"
+PROOF_CEILING_MEANING_V1 = "CONTROLLED_VALIDATION_ONLY"
+PUBLIC_SAFE_STATUS_V1 = "NOT_PUBLIC_SAFE"
+REVIEW_LANE_V1 = "PUBLIC_SAFE_CANDIDATE_REVIEW_V1"
+REVIEW_VERSION_V1 = "v1"
 NEXT_GATE_V1 = "human_review_gate"
+PENDING_REVIEW_MARKER = "PENDING"
+PROOF_PACKET_REFERENCE_V1 = {
+    "repo": "hawkinsoperations-proof",
+    "pr": "HawkinsOperations/hawkinsoperations-proof#82",
+    "merge_commit": "68798e43855e34a15df06d9a2bc9d6ac71d6746d",
+    "packet_path": "proof/records/HO-DET-001-PUBLIC-SAFE-CANDIDATE-REVIEW-V1.md",
+    "status_index_path": "proof/indexes/DETECTION_PROOF_STATUS_INDEX.yml",
+}
+PLATFORM_CONTRACT_REFERENCE_V1 = {
+    "repo": "hawkinsoperations-platform",
+    "pr": "HawkinsOperations/hawkinsoperations-platform#64",
+    "merge_commit": "c49a95e2b9f2e6b5fa118c03dfc68f8827981c82",
+    "contract_path": "contracts/public-status-source-contract-v1.json",
+    "verifier_path": "scripts/verify-public-status-source-contract.py",
+    "proof_ceiling": PROOF_CEILING_MEANING_V1,
+}
+PROMOTION_BLOCKERS_V1 = [
+    "privacy_review_pending",
+    "stale_review_pending",
+    "evidence_linkage_review_pending",
+    "wording_approval_pending",
+    "human_review_required",
+    "proof_ceiling_controlled_validation_only",
+]
 
 REQUIRED_BLOCKED_CLAIMS = [
+    "runtime active",
     "runtime-active",
     "runtime proven",
     "signal observed",
+    "public-safe approved",
     "public-safe proof",
+    "production SOC",
+    "SOC deployed",
     "production-ready",
     "production ready",
     "SOCaaS-ready",
     "SOCaaS deployed",
     "customer deployed",
+    "customer validated",
     "AI approved",
     "analyst approved",
+    "autonomous approval",
     "final human authorization",
     "final authorization",
     "case closed",
     "case closure",
+    "green CI as approval",
+    "website rendering as proof",
+    "GitHub rendering as proof",
     "public runtime proof",
     "public-safe runtime proof",
     "public signal proof",
@@ -114,6 +151,12 @@ BLOCKED_MARKDOWN_LABELS = {
 }
 
 CLAIM_AUTHORITY_V1_RULES = {
+    "runtime active": {
+        "reason": "Runtime-active status requires deployment, enablement, schedule, or backend state evidence plus review.",
+        "required_evidence": ["runtime_evidence", "human_review_gate_complete"],
+        "safer_wording": "runtime-active status is not asserted",
+        "facts": ["runtime_observed", "human_review_complete"],
+    },
     "runtime proven": {
         "reason": "Runtime proof requires observed runtime evidence, preserved references, and human review.",
         "required_evidence": ["runtime_evidence", "human_review_gate_complete"],
@@ -138,11 +181,41 @@ CLAIM_AUTHORITY_V1_RULES = {
         "safer_wording": "customer deployment is not asserted",
         "facts": ["customer_deployment_evidence", "public_safe_authorized"],
     },
+    "customer validated": {
+        "reason": "Customer validation requires customer validation evidence and approved public wording.",
+        "required_evidence": ["customer_validation_evidence", "public_safe_authorization"],
+        "safer_wording": "customer validation is not asserted",
+        "facts": ["customer_validation_evidence", "public_safe_authorized"],
+    },
+    "production SOC": {
+        "reason": "Production SOC wording requires production deployment, runtime, signal, and completed review evidence.",
+        "required_evidence": ["deployment_evidence", "runtime_evidence", "signal_observation_evidence", "human_review_gate_complete"],
+        "safer_wording": "production SOC status is not asserted",
+        "facts": ["deployment_evidence", "runtime_observed", "signal_observed", "human_review_complete"],
+    },
+    "SOC deployed": {
+        "reason": "SOC deployment requires deployment evidence and approved public wording.",
+        "required_evidence": ["service_deployment_evidence", "public_safe_authorization"],
+        "safer_wording": "SOC deployment is not asserted",
+        "facts": ["service_deployment_evidence", "public_safe_authorized"],
+    },
     "SOCaaS deployed": {
         "reason": "SOCaaS deployment requires service deployment evidence and public-safe authorization.",
         "required_evidence": ["service_deployment_evidence", "public_safe_authorization"],
         "safer_wording": "SOCaaS deployment is not asserted",
         "facts": ["service_deployment_evidence", "public_safe_authorized"],
+    },
+    "public-safe approved": {
+        "reason": "Public-safe approval requires privacy, stale, evidence-linkage, wording, and explicit human approval records.",
+        "required_evidence": ["public_safe_authorization", "human_review_gate_complete"],
+        "safer_wording": "public-safe approval is not asserted",
+        "facts": ["public_safe_authorized", "human_review_complete"],
+    },
+    "public-safe proof": {
+        "reason": "Public-safe proof requires approved public-safe evidence linkage and explicit authorization.",
+        "required_evidence": ["public_safe_authorization", "human_review_gate_complete"],
+        "safer_wording": "public-safe proof is not asserted",
+        "facts": ["public_safe_authorized", "human_review_complete"],
     },
     "public-safe runtime proof": {
         "reason": "Public-safe runtime proof requires runtime evidence and explicit public-safe authorization.",
@@ -162,17 +235,53 @@ CLAIM_AUTHORITY_V1_RULES = {
         "safer_wording": "analyst-approved disposition is not asserted",
         "facts": ["analyst_review_complete"],
     },
+    "autonomous approval": {
+        "reason": "Autonomous approval is not claim authority and requires explicit human review.",
+        "required_evidence": ["human_review_gate_complete"],
+        "safer_wording": "autonomous approval is not asserted",
+        "facts": ["never"],
+    },
+    "final human authorization": {
+        "reason": "Final human authorization requires an explicit final human authorization record.",
+        "required_evidence": ["final_authorization_record"],
+        "safer_wording": "final human authorization is not asserted",
+        "facts": ["final_authorization_record"],
+    },
     "final authorization": {
         "reason": "Final authorization requires an explicit final authorization record.",
         "required_evidence": ["final_authorization_record"],
         "safer_wording": "final authorization is not asserted",
         "facts": ["final_authorization_record"],
     },
+    "case closed": {
+        "reason": "Case-closed wording requires explicit case-closure authority outside this Gauntlet run.",
+        "required_evidence": ["case_closure_record", "human_review_gate_complete"],
+        "safer_wording": "case closure is not asserted",
+        "facts": ["case_closure_record", "human_review_complete"],
+    },
     "case closure": {
         "reason": "Case closure requires explicit case-closure authority outside this Gauntlet run.",
         "required_evidence": ["case_closure_record", "human_review_gate_complete"],
         "safer_wording": "case closure is not asserted",
         "facts": ["case_closure_record", "human_review_complete"],
+    },
+    "green CI as approval": {
+        "reason": "CI can check files but cannot approve public-safe, runtime, signal, or claim authority state.",
+        "required_evidence": ["human_review_gate_complete"],
+        "safer_wording": "green CI is not approval",
+        "facts": ["never"],
+    },
+    "website rendering as proof": {
+        "reason": "Website rendering is not proof authority and cannot create public-safe, runtime, or signal truth.",
+        "required_evidence": ["proof_authority_record", "human_review_gate_complete"],
+        "safer_wording": "website rendering is not proof",
+        "facts": ["proof_authority_record", "human_review_complete"],
+    },
+    "GitHub rendering as proof": {
+        "reason": "GitHub rendering displays repository content but does not approve claim authority state.",
+        "required_evidence": ["proof_authority_record", "human_review_gate_complete"],
+        "safer_wording": "GitHub rendering is not proof",
+        "facts": ["proof_authority_record", "human_review_complete"],
     },
 }
 
@@ -396,11 +505,24 @@ def decide_claim_authority_v1(report: dict[str, Any]) -> dict[str, Any]:
         "detection_id": report.get("detection_id"),
         "artifact_id": report.get("artifact_id"),
         "proof_ceiling": report.get("proof_ceiling", PROOF_CEILING_V1),
+        "proof_ceiling_meaning": report.get("proof_ceiling_meaning", PROOF_CEILING_MEANING_V1),
+        "review_lane": report.get("review_lane", REVIEW_LANE_V1),
+        "review_version": report.get("review_version", REVIEW_VERSION_V1),
+        "privacy_review": report.get("privacy_review", PENDING_REVIEW_MARKER),
+        "stale_review": report.get("stale_review", PENDING_REVIEW_MARKER),
+        "evidence_linkage_review": report.get("evidence_linkage_review", PENDING_REVIEW_MARKER),
+        "wording_approval": report.get("wording_approval", PENDING_REVIEW_MARKER),
         "public_safe": bool(report.get("public_safe")),
-        "public_safe_status": report.get("public_safe_status", "blocked"),
+        "public_safe_status": report.get("public_safe_status", PUBLIC_SAFE_STATUS_V1),
+        "runtime_active": bool(report.get("runtime_active")),
+        "signal_observed": bool(report.get("signal_observed")),
         "human_review_required": bool(report.get("human_review_required")),
         "allowed_claims": allowed_claims,
         "blocked_claims": blocked,
+        "promotion_blockers": list(report.get("promotion_blockers") or PROMOTION_BLOCKERS_V1),
+        "proof_packet_reference": report.get("proof_packet_reference", PROOF_PACKET_REFERENCE_V1),
+        "platform_contract_reference": report.get("platform_contract_reference", PLATFORM_CONTRACT_REFERENCE_V1),
+        "last_reviewed_at": report.get("last_reviewed_at"),
         "missing_evidence": missing_evidence,
         "next_gate": report.get("next_gate", NEXT_GATE_V1),
         "safer_wording": SAFE_CLAIM if allowed_claims else "controlled-validation claim is not allowed until intake, telemetry, and validation evidence pass",
@@ -425,11 +547,24 @@ def render_proofcard_v1(report: dict[str, Any]) -> str:
         "proof_owner": proofcard.get("proof_owner") or authority_split.get("proof_owner", ""),
         "website_owner": authority_split.get("website_owner", ""),
         "proof_ceiling": report.get("proof_ceiling", PROOF_CEILING_V1),
+        "proof_ceiling_meaning": report.get("proof_ceiling_meaning", PROOF_CEILING_MEANING_V1),
+        "review_lane": report.get("review_lane", REVIEW_LANE_V1),
+        "review_version": report.get("review_version", REVIEW_VERSION_V1),
+        "privacy_review": report.get("privacy_review", PENDING_REVIEW_MARKER),
+        "stale_review": report.get("stale_review", PENDING_REVIEW_MARKER),
+        "evidence_linkage_review": report.get("evidence_linkage_review", PENDING_REVIEW_MARKER),
+        "wording_approval": report.get("wording_approval", PENDING_REVIEW_MARKER),
         "public_safe": bool(report.get("public_safe")),
-        "public_safe_status": report.get("public_safe_status", "blocked"),
+        "public_safe_status": report.get("public_safe_status", PUBLIC_SAFE_STATUS_V1),
+        "runtime_active": bool(report.get("runtime_active")),
+        "signal_observed": bool(report.get("signal_observed")),
         "human_review_required": bool(report.get("human_review_required")),
         "allowed_claims": decide_claim_authority_v1(report)["allowed_claims"],
         "blocked_claims": decide_claim_authority_v1(report)["blocked_claims"],
+        "promotion_blockers": list(report.get("promotion_blockers") or PROMOTION_BLOCKERS_V1),
+        "proof_packet_reference": report.get("proof_packet_reference", PROOF_PACKET_REFERENCE_V1),
+        "platform_contract_reference": report.get("platform_contract_reference", PLATFORM_CONTRACT_REFERENCE_V1),
+        "last_reviewed_at": report.get("last_reviewed_at"),
         "missing_evidence": decide_claim_authority_v1(report)["missing_evidence"],
         "authority_split": authority_split,
         "website_boundary": report.get("website_boundary", {}),
@@ -518,8 +653,17 @@ def _validate_v1_identity(report: dict[str, Any], errors: list[str]) -> None:
         "artifact_id": "HO-DET-001",
         "product": "Hoxline by HawkinsOperations",
         "proof_ceiling": PROOF_CEILING_V1,
+        "proof_ceiling_meaning": PROOF_CEILING_MEANING_V1,
+        "review_lane": REVIEW_LANE_V1,
+        "review_version": REVIEW_VERSION_V1,
+        "privacy_review": PENDING_REVIEW_MARKER,
+        "stale_review": PENDING_REVIEW_MARKER,
+        "evidence_linkage_review": PENDING_REVIEW_MARKER,
+        "wording_approval": PENDING_REVIEW_MARKER,
         "public_safe": False,
-        "public_safe_status": "blocked",
+        "public_safe_status": PUBLIC_SAFE_STATUS_V1,
+        "runtime_active": False,
+        "signal_observed": False,
         "human_review_required": True,
         "next_gate": NEXT_GATE_V1,
     }
@@ -579,6 +723,12 @@ def _validate_v1_runtime_signal_boundaries(report: dict[str, Any], errors: list[
         errors.append("signal_observation cannot be observed without evidence_refs")
     if report.get("public_safe") is True and not _evidence_facts_v1(report)["public_safe_authorized"]:
         errors.append("public_safe cannot be true without public_safe_authorization")
+    if report.get("runtime_active") is not False:
+        errors.append("runtime_active must remain false for candidate review")
+    if report.get("signal_observed") is not False:
+        errors.append("signal_observed must remain false for candidate review")
+    if report.get("public_safe_status") != PUBLIC_SAFE_STATUS_V1:
+        errors.append(f"public_safe_status must be {PUBLIC_SAFE_STATUS_V1}")
 
 
 def _validate_v1_claim_decision(report: dict[str, Any], errors: list[str]) -> None:
@@ -597,6 +747,7 @@ def _validate_v1_claim_decision(report: dict[str, Any], errors: list[str]) -> No
                 errors.append(f"allowed claim overstates proof boundary: {claim}")
         if SAFE_CLAIM not in configured_allowed:
             errors.append("allowed_claims must contain the controlled-validation safe claim")
+    _validate_candidate_review_v1(report, errors)
     configured_blocked = report.get("blocked_claims")
     if not isinstance(configured_blocked, list):
         errors.append("blocked_claims must be a list")
@@ -621,6 +772,40 @@ def _requested_claims_v1(report: dict[str, Any]) -> list[str]:
         if claim not in claims:
             claims.append(claim)
     return claims
+
+
+def _validate_candidate_review_v1(report: dict[str, Any], errors: list[str]) -> None:
+    expected = {
+        "review_lane": REVIEW_LANE_V1,
+        "review_version": REVIEW_VERSION_V1,
+        "privacy_review": PENDING_REVIEW_MARKER,
+        "stale_review": PENDING_REVIEW_MARKER,
+        "evidence_linkage_review": PENDING_REVIEW_MARKER,
+        "wording_approval": PENDING_REVIEW_MARKER,
+        "proof_ceiling_meaning": PROOF_CEILING_MEANING_V1,
+    }
+    for field, value in expected.items():
+        if report.get(field) != value:
+            errors.append(f"field {field} must be {value!r}")
+
+    blockers = report.get("promotion_blockers")
+    if not isinstance(blockers, list):
+        errors.append("promotion_blockers must be a list")
+    else:
+        missing = [item for item in PROMOTION_BLOCKERS_V1 if item not in blockers]
+        if missing:
+            errors.append(f"promotion_blockers missing required blockers: {', '.join(missing)}")
+
+    for field in ("proof_packet_reference", "platform_contract_reference"):
+        value = report.get(field)
+        if not isinstance(value, dict):
+            errors.append(f"{field} must be an object")
+        elif not value:
+            errors.append(f"{field} must not be empty")
+
+    last_reviewed = report.get("last_reviewed_at")
+    if not isinstance(last_reviewed, str) or not last_reviewed:
+        errors.append("last_reviewed_at must be a non-empty string")
 
 
 def _evidence_facts_v1(report: dict[str, Any]) -> dict[str, bool]:
@@ -650,10 +835,12 @@ def _evidence_facts_v1(report: dict[str, Any]) -> dict[str, bool]:
         and bool(public_safe.get("evidence_refs")),
         "deployment_evidence": isinstance(deployment, dict) and bool(deployment.get("deployment_evidence_refs")),
         "customer_deployment_evidence": isinstance(deployment, dict) and bool(deployment.get("customer_deployment_evidence_refs")),
+        "customer_validation_evidence": isinstance(deployment, dict) and bool(deployment.get("customer_validation_evidence_refs")),
         "service_deployment_evidence": isinstance(deployment, dict) and bool(deployment.get("service_deployment_evidence_refs")),
         "analyst_review_complete": isinstance(human_review, dict) and bool(human_review.get("analyst_review_refs")),
         "final_authorization_record": isinstance(human_review, dict) and bool(human_review.get("final_authorization_refs")),
         "case_closure_record": isinstance(human_review, dict) and bool(human_review.get("case_closure_refs")),
+        "proof_authority_record": False,
     }
 
 
@@ -678,12 +865,14 @@ def _evidence_id_missing(evidence_id: str, facts: dict[str, bool]) -> bool:
         "signal_observation_evidence": "signal_observed",
         "deployment_evidence": "deployment_evidence",
         "customer_deployment_evidence": "customer_deployment_evidence",
+        "customer_validation_evidence": "customer_validation_evidence",
         "service_deployment_evidence": "service_deployment_evidence",
         "human_review_gate_complete": "human_review_complete",
         "public_safe_authorization": "public_safe_authorized",
         "analyst_review_record": "analyst_review_complete",
         "final_authorization_record": "final_authorization_record",
         "case_closure_record": "case_closure_record",
+        "proof_authority_record": "proof_authority_record",
     }
     return not facts.get(evidence_to_fact.get(evidence_id, evidence_id), False)
 
@@ -692,16 +881,28 @@ def _claim_text_overstates_v1(text: str) -> bool:
     lowered = text.lower()
     blocked_terms = (
         "runtime proof",
+        "runtime active",
         "runtime proven",
         "signal observed",
+        "public-safe approved",
+        "public-safe proof",
         "production ready",
+        "production soc",
+        "soc deployed",
         "customer deployed",
+        "customer validated",
         "socaas deployed",
         "public-safe runtime proof",
         "ai approved",
         "analyst approved",
+        "autonomous approval",
+        "final human authorization",
         "final authorization",
+        "case closed",
         "case closure",
+        "green ci as approval",
+        "website rendering as proof",
+        "github rendering as proof",
     )
     return any(term in lowered for term in blocked_terms)
 

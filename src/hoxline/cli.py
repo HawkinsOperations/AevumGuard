@@ -147,6 +147,12 @@ def _load_json(path: Path) -> dict[str, object]:
 
 def _print_decision_summary(decision: dict[str, object]) -> None:
     print(f"proof_ceiling: {decision['proof_ceiling']}")
+    print(f"proof_ceiling_meaning: {decision['proof_ceiling_meaning']}")
+    print(f"review_lane: {decision['review_lane']}")
+    print(f"public_safe_status: {decision['public_safe_status']}")
+    print(f"runtime_active: {str(decision['runtime_active']).lower()}")
+    print(f"signal_observed: {str(decision['signal_observed']).lower()}")
+    print(f"human_review_required: {str(decision['human_review_required']).lower()}")
     print(f"next_gate: {decision['next_gate']}")
     print("allowed_claims:")
     for claim in decision["allowed_claims"]:

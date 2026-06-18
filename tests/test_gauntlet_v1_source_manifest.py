@@ -16,22 +16,44 @@ def test_gauntlet_v1_source_manifest_routes_are_stable() -> None:
     assert manifest["detection_id"] == "HO-DET-001"
     assert manifest["artifact_id"] == "HO-DET-001"
     assert manifest["proof_ceiling"] == "CONTROLLED_TEST_VALIDATED"
+    assert manifest["proof_ceiling_meaning"] == "CONTROLLED_VALIDATION_ONLY"
+    assert manifest["review_lane"] == "PUBLIC_SAFE_CANDIDATE_REVIEW_V1"
     assert manifest["public_safe"] is False
-    assert manifest["public_safe_status"] == "blocked"
+    assert manifest["public_safe_status"] == "NOT_PUBLIC_SAFE"
+    assert manifest["runtime_active"] is False
+    assert manifest["signal_observed"] is False
     assert manifest["human_review_required"] is True
+    assert manifest["privacy_review"] == "PENDING"
+    assert manifest["stale_review"] == "PENDING"
+    assert manifest["evidence_linkage_review"] == "PENDING"
+    assert manifest["wording_approval"] == "PENDING"
+    assert manifest["proof_packet_reference"]["packet_path"] == "proof/records/HO-DET-001-PUBLIC-SAFE-CANDIDATE-REVIEW-V1.md"
+    assert manifest["platform_contract_reference"]["contract_path"] == "contracts/public-status-source-contract-v1.json"
     assert manifest["authority_split"]["website_boundary"] == "rendering-only"
 
     required_blocked = {
+        "runtime active",
         "runtime proven",
         "signal observed",
+        "public-safe approved",
+        "public-safe proof",
         "production ready",
+        "production SOC",
+        "SOC deployed",
         "customer deployed",
+        "customer validated",
         "SOCaaS deployed",
         "public-safe runtime proof",
         "AI approved",
         "analyst approved",
+        "autonomous approval",
+        "final human authorization",
         "final authorization",
+        "case closed",
         "case closure",
+        "green CI as approval",
+        "website rendering as proof",
+        "GitHub rendering as proof",
     }
     assert required_blocked <= set(manifest["blocked_claims"])
 

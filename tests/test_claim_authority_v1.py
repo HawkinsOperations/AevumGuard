@@ -18,6 +18,11 @@ def test_controlled_validation_claim_is_allowed() -> None:
 
     assert decision["allowed_claims"] == [SAFE_CLAIM]
     assert decision["proof_ceiling"] == "CONTROLLED_TEST_VALIDATED"
+    assert decision["proof_ceiling_meaning"] == "CONTROLLED_VALIDATION_ONLY"
+    assert decision["review_lane"] == "PUBLIC_SAFE_CANDIDATE_REVIEW_V1"
+    assert decision["public_safe_status"] == "NOT_PUBLIC_SAFE"
+    assert decision["runtime_active"] is False
+    assert decision["signal_observed"] is False
     assert decision["public_safe"] is False
     assert decision["next_gate"] == "human_review_gate"
 
@@ -26,15 +31,27 @@ def test_controlled_validation_claim_is_allowed() -> None:
     ("claim", "missing"),
     [
         ("runtime proven", "runtime_evidence"),
+        ("runtime active", "runtime_evidence"),
         ("signal observed", "signal_observation_evidence"),
+        ("public-safe approved", "public_safe_authorization"),
+        ("public-safe proof", "public_safe_authorization"),
         ("production ready", "deployment_evidence"),
+        ("production SOC", "deployment_evidence"),
+        ("SOC deployed", "service_deployment_evidence"),
         ("customer deployed", "customer_deployment_evidence"),
+        ("customer validated", "customer_validation_evidence"),
         ("SOCaaS deployed", "service_deployment_evidence"),
         ("public-safe runtime proof", "public_safe_authorization"),
         ("AI approved", "human_review_gate_complete"),
         ("analyst approved", "analyst_review_record"),
+        ("autonomous approval", "human_review_gate_complete"),
+        ("final human authorization", "final_authorization_record"),
         ("final authorization", "final_authorization_record"),
+        ("case closed", "case_closure_record"),
         ("case closure", "case_closure_record"),
+        ("green CI as approval", "human_review_gate_complete"),
+        ("website rendering as proof", "proof_authority_record"),
+        ("GitHub rendering as proof", "proof_authority_record"),
     ],
 )
 def test_structured_evidence_blocks_unsupported_claims(claim: str, missing: str) -> None:

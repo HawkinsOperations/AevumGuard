@@ -68,9 +68,22 @@ It is bounded to one artifact, the full Hoxline loop, one ProofCard reference, o
 
 Safe claim:
 
-> HO-DET-001 has controlled validation evidence under stated scope and remains bounded by its proof ceiling.
+> HO-DET-001 has controlled validation evidence and remains under governed public-safe candidate review.
 
 The Gauntlet does not claim production ready, runtime proven, signal observed, customer deployed, SOCaaS deployed, public-safe runtime proof, AI approved, analyst approved, final authorization, or case closure unless exact evidence exists and is approved.
+
+## Candidate Review Boundary
+
+HO-DET-001 Public-Safe Candidate Review v1 is represented in Hoxline as controlled-validation modeling only.
+
+* Platform reference: `hawkinsoperations-platform#64`, merge commit `c49a95e2b9f2e6b5fa118c03dfc68f8827981c82`.
+* Proof reference: `hawkinsoperations-proof#82`, merge commit `68798e43855e34a15df06d9a2bc9d6ac71d6746d`.
+* Review lane: `PUBLIC_SAFE_CANDIDATE_REVIEW_V1`.
+* Review gates: privacy review, stale review, evidence-linkage review, and wording approval remain `PENDING`.
+* Runtime is not promoted. Signal is not promoted. Hoxline does not claim public-safe approval.
+* Human review is required before any stronger public claim.
+
+Rendering, GitHub display, and green CI are not proof or approval.
 
 ## Seven-Repo Rule
 
