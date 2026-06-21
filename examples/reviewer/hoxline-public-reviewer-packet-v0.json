@@ -116,7 +116,7 @@
     {
       "label": "Public reviewer packet",
       "path": "docs/reviewer/HOXLINE_PUBLIC_REVIEWER_PACKET_V0.md",
-      "boundary": "public-safe current-state packet; not public proof promotion"
+      "boundary": "public-boundary current-state packet; not public proof promotion"
     },
     {
       "label": "Packet JSON",
@@ -147,5 +147,5 @@
       "purpose": "run read-only platform governance checks without ledger mutation or public promotion"
     }
   ],
-  "report_hash": "60d00fe4587dd4efb68da27d9e891fc4da12c509abe9969fa1e523020b21638b"
+  "report_hash": "4c9a22eca1adbf9308bb36335e9ace23aab81cc71022f873d7a8988b2f6c1185"
 }
