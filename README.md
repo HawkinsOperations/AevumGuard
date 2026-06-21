@@ -91,6 +91,7 @@ No eighth repository is part of this product spine. Hoxline modules are internal
 
 * `PRODUCT_BOUNDARY.md` defines what Hoxline owns and does not own.
 * `docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md` is the default HO-DET-001 reviewer/demo path.
+* `docs/reviewer/HOXLINE_PUBLIC_REVIEWER_PACKET_V0.md` explains the public reviewer packet and its boundaries.
 * `docs/product/HOXLINE_BLUEPRINT.md` defines the Hoxline product-spine blueprint.
 * `docs/product/MODULE_MAP.md` maps every loop stage to an internal module responsibility.
 * `docs/product/SEVEN_REPO_SYSTEM_MAP.md` preserves the seven-repo system boundary.
@@ -98,5 +99,6 @@ No eighth repository is part of this product spine. Hoxline modules are internal
 * `docs/gauntlet/HOXLINE_GAUNTLET_V0.md` remains a non-default sample path.
 * `schemas/` contains v0 JSON shapes for promotion state and evidence graph records.
 * `examples/gauntlet/` contains sample JSON records with runtime observation, signal observation, and public safety status unset.
+* `examples/reviewer/hoxline-public-reviewer-packet-v0.json` contains the sanitized reviewer current-state packet.
 
 Proof ceiling: PRODUCT_SPINE_ONLY.

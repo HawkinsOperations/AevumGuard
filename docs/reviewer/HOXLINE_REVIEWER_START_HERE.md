@@ -17,12 +17,15 @@ Start with these files:
 3. `examples/gauntlet/ho-det-001-full-loop-run-v0.md`
 4. `examples/gauntlet/ho-det-001-proofcard-v0.json`
 5. `docs/proofcards/HO-DET-001_PROOFCARD_V0.md`
-6. `docs/demo/HOXLINE_CONTROLLED_DEMO_V0.md`
-7. `docs/demo/HO_DET_001_WALKTHROUGH.md`
-8. `docs/demo/CLAIM_DECISION_TABLE.md`
-9. `docs/releases/HOXLINE_PR7_PR8_PR63_RELEASE_PACKET.md`
-10. `docs/strategy/README.md`
-11. Website route: `/hoxline/`
+6. `docs/reviewer/HOXLINE_PUBLIC_REVIEWER_PACKET_V0.md`
+7. `examples/reviewer/hoxline-public-reviewer-packet-v0.json`
+8. `examples/reviewer/hoxline-public-reviewer-packet-v0.md`
+9. `docs/demo/HOXLINE_CONTROLLED_DEMO_V0.md`
+10. `docs/demo/HO_DET_001_WALKTHROUGH.md`
+11. `docs/demo/CLAIM_DECISION_TABLE.md`
+12. `docs/releases/HOXLINE_PR7_PR8_PR63_RELEASE_PACKET.md`
+13. `docs/strategy/README.md`
+14. Website route: `/hoxline/`
 
 ## Hoxline Product Loop
 
@@ -119,6 +122,6 @@ Do not promote AI approval, analyst approval, final human authorization, or case
 
 ## Next Safe Work Item
 
-Hoxline public_safe reviewer packet v0 / controlled demo packaging.
+Hoxline public reviewer packet v0 / controlled demo packaging.
 
 Keep that work bounded to reviewer packaging and controlled demo language. It does not claim public-safe status and should not promote runtime, signal, production, SOCaaS, customer, or legal claims.
