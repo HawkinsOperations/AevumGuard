@@ -7,6 +7,7 @@ import sys
 
 from .gauntlet import GauntletError, build_full_loop_run, render_markdown, verify_full_loop_run_file
 from .gauntlet import decide_claim_authority_v1, render_proofcard_v1, summarize_gauntlet_run_v1
+from .reviewer import ReviewerPacketError, verify_public_reviewer_packet_file
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -23,6 +24,8 @@ def main(argv: list[str] | None = None) -> int:
         return _decide_claim_authority(args)
     if args.command == "proofcard" and args.proofcard_command == "render":
         return _render_proofcard(args)
+    if args.command == "reviewer" and args.reviewer_command == "verify":
+        return _verify_reviewer(args)
 
     parser.print_help()
     return 2
@@ -60,6 +63,16 @@ def _build_parser() -> argparse.ArgumentParser:
     proofcard_subparsers = proofcard_parser.add_subparsers(dest="proofcard_command")
     render_parser = proofcard_subparsers.add_parser("render", help="render a deterministic ProofCard v1 JSON view")
     render_parser.add_argument("--input", required=True, help="Gauntlet v1 JSON run to render")
+
+    reviewer_parser = subparsers.add_parser("reviewer", help="verify Hoxline public reviewer packets")
+    reviewer_subparsers = reviewer_parser.add_subparsers(dest="reviewer_command")
+    reviewer_verify_parser = reviewer_subparsers.add_parser("verify", help="verify a public reviewer packet")
+    reviewer_verify_parser.add_argument("--input", required=True, help="public reviewer packet JSON to verify")
+    reviewer_verify_parser.add_argument(
+        "--schema",
+        default="schemas/public-reviewer-packet-v0.schema.json",
+        help="public reviewer packet schema path",
+    )
 
     return parser
 
@@ -134,6 +147,23 @@ def _render_proofcard(args: argparse.Namespace) -> int:
         print(f"Hoxline ProofCard render: FAIL: {exc}", file=sys.stderr)
         return 2
     print(render_proofcard_v1(report), end="")
+    return 0
+
+
+def _verify_reviewer(args: argparse.Namespace) -> int:
+    try:
+        errors = verify_public_reviewer_packet_file(Path(args.input), Path(args.schema))
+    except (ReviewerPacketError, OSError) as exc:
+        print(f"Hoxline Reviewer verify: FAIL: {exc}", file=sys.stderr)
+        return 2
+
+    if errors:
+        print(f"Hoxline Reviewer verify: FAIL: {len(errors)} error(s)")
+        for error in errors:
+            print(f"- {error}")
+        return 1
+
+    print("Hoxline Reviewer verify: PASS")
     return 0
 
 

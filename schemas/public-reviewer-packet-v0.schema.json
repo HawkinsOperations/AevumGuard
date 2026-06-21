@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hawkinsoperations.dev/hoxline/schemas/public-reviewer-packet-v0.schema.json",
+  "title": "Hoxline Public Reviewer Packet v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "generated_at_utc",
+    "product",
+    "doctrine",
+    "public_safe_status",
+    "public_proof_published",
+    "website_rendering_is_proof",
+    "green_ci_is_approval",
+    "human_review_required",
+    "proof_ceiling_public",
+    "proof_ceiling_private_reference",
+    "authority_surfaces",
+    "detections",
+    "product_loop",
+    "allowed_claims",
+    "blocked_claims",
+    "missing_evidence",
+    "reviewer_paths",
+    "validation_commands",
+    "report_hash"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://hawkinsoperations.dev/hoxline/schemas/public-reviewer-packet-v0.schema.json"
+    },
+    "schema_version": {
+      "const": "hoxline-public-reviewer-packet-v0"
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "product": {
+      "const": "Hoxline by HawkinsOperations"
+    },
+    "doctrine": {
+      "const": "AI is not the authority. Evidence is."
+    },
+    "public_safe_status": {
+      "const": "NOT_PUBLIC_SAFE"
+    },
+    "public_proof_published": {
+      "const": false
+    },
+    "website_rendering_is_proof": {
+      "const": false
+    },
+    "green_ci_is_approval": {
+      "const": false
+    },
+    "human_review_required": {
+      "const": true
+    },
+    "proof_ceiling_public": {
+      "const": "CONTROLLED_TEST_VALIDATED"
+    },
+    "proof_ceiling_private_reference": {
+      "const": "PRIVATE_CONTROLLED_RUNTIME_PROOF"
+    },
+    "authority_surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [".github", "detections", "validation", "platform", "proof", "website", "hoxline"],
+      "properties": {
+        ".github": { "const": "routing only" },
+        "detections": { "const": "source truth" },
+        "validation": { "const": "behavior truth" },
+        "platform": { "const": "contracts/mechanics" },
+        "proof": { "const": "claim authority" },
+        "website": { "const": "rendering only" },
+        "hoxline": { "const": "product/control route" }
+      }
+    },
+    "detections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["HO-DET-001", "HO-DET-011", "HO-DET-012"],
+      "properties": {
+        "HO-DET-001": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "public_state",
+            "public_safe",
+            "private_runtime_reference_available",
+            "private_runtime_reference_public_boundary",
+            "canonical_private_packet_digest",
+            "historical_noncanonical_packet_digest",
+            "safe_public_claim",
+            "blocked_claims"
+          ],
+          "properties": {
+            "public_state": { "const": "CONTROLLED_TEST_VALIDATED" },
+            "public_safe": { "const": false },
+            "private_runtime_reference_available": { "const": true },
+            "private_runtime_reference_public_boundary": { "const": "HASH_REFERENCE_ONLY_NOT_PUBLIC_PROOF" },
+            "canonical_private_packet_digest": { "const": "589e4220b73cc26115629281f29fe34c17950e539454881734802392729ec2f9" },
+            "historical_noncanonical_packet_digest": { "const": "78100a2e72b5ca5f1866f4bfba48d3b48dc0512eef8620d0eed1fe3c854cc891" },
+            "safe_public_claim": { "const": "HO-DET-001 has controlled validation evidence and remains under governed review." },
+            "blocked_claims": {
+              "type": "array",
+              "minItems": 10,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "HO-DET-011": { "$ref": "#/$defs/waiting_detection" },
+        "HO-DET-012": { "$ref": "#/$defs/waiting_detection" }
+      }
+    },
+    "product_loop": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "AI-assisted security work" },
+        { "const": "Artifact Intake" },
+        { "const": "Evidence Graph" },
+        { "const": "Telemetry Contract Check" },
+        { "const": "Controlled Validation" },
+        { "const": "Runtime Candidate Ledger" },
+        { "const": "Signal Observation" },
+        { "const": "Human Review Gate" },
+        { "const": "ProofCard" },
+        { "const": "Claim Authority" },
+        { "const": "Safe Claim / Blocked Claim" }
+      ],
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "allowed_claims": {
+      "type": "array",
+      "contains": {
+        "const": "HO-DET-001 has controlled validation evidence and remains under governed review."
+      },
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocked_claims": {
+      "type": "array",
+      "minItems": 12,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reviewer_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "path", "boundary"],
+        "properties": {
+          "label": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "boundary": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "purpose"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "report_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "waiting_detection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_state",
+        "fixture_private_runtime_path",
+        "real_operator_receipt",
+        "remote_wazuh_discovery_result",
+        "public_safe",
+        "next_safe_action"
+      ],
+      "properties": {
+        "public_state": { "const": "WAITING_FOR_REAL_OPERATOR_INPUT" },
+        "fixture_private_runtime_path": { "const": true },
+        "real_operator_receipt": { "const": "missing" },
+        "remote_wazuh_discovery_result": { "const": "marker_hits_without_governed_execution_id" },
+        "public_safe": { "const": false },
+        "next_safe_action": {
+          "const": "controlled operator run with execution ID, sanitized Wazuh export, and operator attestation"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "$schema": "https://hawkinsoperations.dev/hoxline/schemas/public-reviewer-packet-v0.schema.json",
+  "schema_version": "hoxline-public-reviewer-packet-v0",
+  "generated_at_utc": "2026-06-21T21:15:00Z",
+  "product": "Hoxline by HawkinsOperations",
+  "doctrine": "AI is not the authority. Evidence is.",
+  "public_safe_status": "NOT_PUBLIC_SAFE",
+  "public_proof_published": false,
+  "website_rendering_is_proof": false,
+  "green_ci_is_approval": false,
+  "human_review_required": true,
+  "proof_ceiling_public": "CONTROLLED_TEST_VALIDATED",
+  "proof_ceiling_private_reference": "PRIVATE_CONTROLLED_RUNTIME_PROOF",
+  "authority_surfaces": {
+    ".github": "routing only",
+    "detections": "source truth",
+    "validation": "behavior truth",
+    "platform": "contracts/mechanics",
+    "proof": "claim authority",
+    "website": "rendering only",
+    "hoxline": "product/control route"
+  },
+  "detections": {
+    "HO-DET-001": {
+      "public_state": "CONTROLLED_TEST_VALIDATED",
+      "public_safe": false,
+      "private_runtime_reference_available": true,
+      "private_runtime_reference_public_boundary": "HASH_REFERENCE_ONLY_NOT_PUBLIC_PROOF",
+      "canonical_private_packet_digest": "589e4220b73cc26115629281f29fe34c17950e539454881734802392729ec2f9",
+      "historical_noncanonical_packet_digest": "78100a2e72b5ca5f1866f4bfba48d3b48dc0512eef8620d0eed1fe3c854cc891",
+      "safe_public_claim": "HO-DET-001 has controlled validation evidence and remains under governed review.",
+      "blocked_claims": [
+        "runtime proven",
+        "signal observed",
+        "public-safe runtime proof",
+        "production ready",
+        "customer deployed",
+        "SOCaaS deployed",
+        "AI approved",
+        "analyst approved",
+        "final authorization",
+        "case closed"
+      ]
+    },
+    "HO-DET-011": {
+      "public_state": "WAITING_FOR_REAL_OPERATOR_INPUT",
+      "fixture_private_runtime_path": true,
+      "real_operator_receipt": "missing",
+      "remote_wazuh_discovery_result": "marker_hits_without_governed_execution_id",
+      "public_safe": false,
+      "next_safe_action": "controlled operator run with execution ID, sanitized Wazuh export, and operator attestation"
+    },
+    "HO-DET-012": {
+      "public_state": "WAITING_FOR_REAL_OPERATOR_INPUT",
+      "fixture_private_runtime_path": true,
+      "real_operator_receipt": "missing",
+      "remote_wazuh_discovery_result": "marker_hits_without_governed_execution_id",
+      "public_safe": false,
+      "next_safe_action": "controlled operator run with execution ID, sanitized Wazuh export, and operator attestation"
+    }
+  },
+  "product_loop": [
+    "AI-assisted security work",
+    "Artifact Intake",
+    "Evidence Graph",
+    "Telemetry Contract Check",
+    "Controlled Validation",
+    "Runtime Candidate Ledger",
+    "Signal Observation",
+    "Human Review Gate",
+    "ProofCard",
+    "Claim Authority",
+    "Safe Claim / Blocked Claim"
+  ],
+  "allowed_claims": [
+    "HO-DET-001 has controlled validation evidence and remains under governed review.",
+    "Hoxline controls how AI-assisted security work becomes tested, reviewed, blocked, or safe to claim."
+  ],
+  "blocked_claims": [
+    "runtime proven",
+    "signal observed",
+    "public-safe runtime proof",
+    "production ready",
+    "customer deployed",
+    "SOCaaS deployed",
+    "AI approved",
+    "analyst approved",
+    "final authorization",
+    "case closed",
+    "fleet-wide coverage",
+    "public proof promotion"
+  ],
+  "missing_evidence": [
+    "HO-DET-001 public-safe authorization",
+    "HO-DET-001 public-safe runtime evidence release approval",
+    "HO-DET-011 governed execution ID",
+    "HO-DET-011 sanitized Wazuh export",
+    "HO-DET-011 operator attestation",
+    "HO-DET-012 governed execution ID",
+    "HO-DET-012 sanitized Wazuh export",
+    "HO-DET-012 operator attestation",
+    "human final authorization",
+    "public proof promotion approval"
+  ],
+  "reviewer_paths": [
+    {
+      "label": "Reviewer start guide",
+      "path": "docs/reviewer/HOXLINE_REVIEWER_START_HERE.md",
+      "boundary": "public route guide only"
+    },
+    {
+      "label": "Default HO-DET-001 Gauntlet run",
+      "path": "docs/gauntlet/HO_DET_001_GAUNTLET_RUN.md",
+      "boundary": "controlled validation route only"
+    },
+    {
+      "label": "Public reviewer packet",
+      "path": "docs/reviewer/HOXLINE_PUBLIC_REVIEWER_PACKET_V0.md",
+      "boundary": "public-safe current-state packet; not public proof promotion"
+    },
+    {
+      "label": "Packet JSON",
+      "path": "examples/reviewer/hoxline-public-reviewer-packet-v0.json",
+      "boundary": "sanitized current-state data"
+    },
+    {
+      "label": "Packet schema",
+      "path": "schemas/public-reviewer-packet-v0.schema.json",
+      "boundary": "packet shape and fail-closed constants"
+    }
+  ],
+  "validation_commands": [
+    {
+      "id": "pytest",
+      "purpose": "run the Hoxline test suite"
+    },
+    {
+      "id": "gauntlet_verify",
+      "purpose": "verify the existing HO-DET-001 controlled-validation Gauntlet route"
+    },
+    {
+      "id": "reviewer_verify",
+      "purpose": "verify this public reviewer packet against its schema and public-boundary invariants"
+    },
+    {
+      "id": "platform_governance_verify",
+      "purpose": "run read-only platform governance checks without ledger mutation or public promotion"
+    }
+  ],
+  "report_hash": "60d00fe4587dd4efb68da27d9e891fc4da12c509abe9969fa1e523020b21638b"
+}
