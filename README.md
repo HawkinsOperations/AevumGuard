@@ -63,6 +63,12 @@ Hoxline models the merged platform/proof candidate-review state for HO-DET-001 a
 
 References are carried from `hawkinsoperations-platform#64` and `hawkinsoperations-proof#82`. They remain references only; Hoxline does not own platform ledger truth, proof authority, runtime truth, signal truth, website rendering authority, or final authorization. Hoxline does not claim public-safe approval.
 
+
+## Private Runtime Candidate Lane
+
+Hoxline also supports private runtime candidate review for artifacts whose source, telemetry contract, validation, private signal, packet verification, and scheduled collector inclusion have been established internally but are not public-safe proof.
+
+HO-DET-010 is the current bounded example: it has private VM108-scoped runtime signal evidence, a verified private packet, and standing private collector inclusion. It remains `NOT_PUBLIC_SAFE`; human review is required; AI has no disposition authority; no public proof, ledger append, website proof promotion, production, customer, SOCaaS, fleet, analyst-approved, AI-approved, or case-closure claim is made.
 ## Claim Firewall
 
 Claim Firewall is the first Claim Authority enforcement capability inside Hoxline.
