@@ -23,6 +23,30 @@ python -B -m hoxline proofcard render --input examples/gauntlet/ho-det-001-gaunt
 
 The rendered ProofCard shows that the Gauntlet record can emit deterministic review output from local JSON only.
 
+
+## Runtime Candidate Review Lane
+
+ProofCard v1 can also represent a private runtime candidate review packet when platform evidence exists but public proof promotion is not approved.
+
+This lane is for private reviewer routing only. It maps source ownership, telemetry contract, controlled validation, private runtime observation, sanitized packet verification, scheduled collector inclusion, claim ceiling, blocked claims, and the next human review gate without publishing raw evidence.
+
+HO-DET-010 is the current bounded example for this lane:
+
+* Source owner: `hawkinsoperations-detections`.
+* Validation owner: `hawkinsoperations-validation`.
+* Runtime and scheduled-collector mechanics owner: `hawkinsoperations-platform`.
+* Telemetry contract: Windows Security EventChannel account and local-group management events.
+* Runtime truth: private VM108-scoped signal evidence and verified private packet exist.
+* Schedule truth: included in the standing private collector scope with HO-DET-009, HO-DET-011, and HO-DET-012.
+* `public_safe_status`: `NOT_PUBLIC_SAFE`.
+* `human_review_required`: `true`.
+* `ai_disposition_authority`: `false`.
+
+Allowed internal claim:
+
+> HO-DET-010 has private VM108-scoped runtime signal evidence, a verified private packet, and standing private collector inclusion. It remains NOT_PUBLIC_SAFE pending governed review.
+
+This lane does not publish execution IDs, raw Wazuh alerts, endpoint logs, command lines, generated credentials, private payloads, or packet contents. It does not create public promotion authority and does not raise any public claim ceiling.
 ## What It Does Not Prove
 
 It does not claim runtime proof, signal proof, public-safe approval, public-safe proof, customer deployment, SOCaaS deployment, production readiness, AI approval, analyst approval, final authorization, website rendering as proof, GitHub rendering as proof, green CI as approval, or case closure.

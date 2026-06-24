@@ -78,6 +78,23 @@ The default Gauntlet output shows blocked stronger claims, the missing evidence 
 
 These docs are DRAFT / STRATEGY_ONLY / HYPOTHESIS_ONLY.
 
+
+## Private Runtime Candidate Review
+
+Hoxline now distinguishes the public HO-DET-001 controlled-validation reviewer path from private runtime candidate review.
+
+Private runtime candidate review is not public proof. It is a governed internal lane where a reviewer can inspect bounded metadata showing how an artifact moved through source, telemetry contract, controlled validation, private runtime observation, sanitized packet verification, scheduled collector inclusion, claim ceiling, blocked claims, and next review gate.
+
+Current private scheduled collector scope:
+
+- HO-DET-009
+- HO-DET-010
+- HO-DET-011
+- HO-DET-012
+
+HO-DET-010 may be described internally as having private VM108-scoped runtime signal evidence, a verified private packet, and standing private collector inclusion. It remains `NOT_PUBLIC_SAFE`, `human_review_required=true`, and `ai_disposition_authority=false` pending governed review.
+
+Do not copy private packet contents, raw Wazuh alerts, endpoint logs, command lines, generated credentials, private payloads, execution identifiers, or private telemetry into public documentation.
 ## Website Route
 
 The website route is `/hoxline/`.
