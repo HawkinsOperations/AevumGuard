@@ -1,7 +1,8 @@
 # Hoxline Case Growth Index v0
 
-Generated: `2026-06-27T09:25:42Z`
+Generated: `2026-06-27T10:05:59Z`
 Proof ceiling: `CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY`
+Repo-slot accuracy: `seven expected repo slots evaluated; seven present local repos scanned`
 
 ## Summary
 
@@ -25,6 +26,40 @@ Proof ceiling: `CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY`
 | `cases_missing_proofcard_count` | 23 |
 | `cases_not_public_safe_count` | 27 |
 | `unknown_state_count` | 1 |
+
+## Case Growth Health
+
+| Health metric | Value |
+| --- | ---: |
+| `validation_coverage_percent` | 85.71 |
+| `proof_record_coverage_percent` | 14.81 |
+| `proofcard_coverage_percent` | 14.81 |
+| `scheduled_collector_coverage_percent` | 14.81 |
+| `runtime_candidate_coverage_percent` | 18.52 |
+| `metrics_coverage_percent` | 3.7 |
+| `public_safe_percent` | 0.0 |
+| `closed_case_percent` | 0.0 |
+| `blocked_claim_density` | 9.0 |
+| `next_gate_coverage_percent` | 96.3 |
+| `missing_proof_record_percent` | 85.19 |
+| `missing_proofcard_percent` | 85.19 |
+| `not_public_safe_percent` | 100.0 |
+
+| Assessment | Value |
+| --- | --- |
+| `overall_health_status` | `PUBLIC_SAFE_BLOCKED` |
+| `strongest_lane` | `controlled_validation` |
+| `weakest_lane` | `public_safe` |
+| `recommended_next_build` | `proof_record_backfill` |
+
+| Top bottleneck |
+| --- |
+| `public_safe blocked for all indexed cases` |
+| `proof records missing for most indexed cases` |
+| `ProofCards missing for most indexed cases` |
+| `case-level metrics available for only a small share of indexed cases` |
+
+The health section is derived from numeric index counts only. It does not promote runtime, signal, customer, production, approval, or public_safe runtime proof.
 
 ## Cases
 

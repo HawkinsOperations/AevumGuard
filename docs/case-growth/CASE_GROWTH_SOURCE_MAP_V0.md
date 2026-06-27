@@ -4,6 +4,8 @@ Proof ceiling: `CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY`
 
 This map defines what each repo can contribute to the Hoxline Case Growth Index v0 and what it cannot prove.
 
+The generator evaluates seven expected repo slots. Current local output reports seven present local repos scanned, with the org route repo resolved at `C:\Raylee\Repo\HawkinsOperations\.github`. The sibling path `C:\Raylee\Repo\HawkinsOperations.github` is not present locally, so reviewer wording should describe the actual org-root `.github` path rather than the absent sibling path.
+
 | Repo | Source role | Files and patterns inspected | Can prove | Cannot prove |
 | --- | --- | --- | --- | --- |
 | `.github` | Organization route/reviewer defaults | `.github/README.md`, workflow and org-default text when present | Org front-door or reviewer route availability | Does not prove detection proof, runtime truth, signal truth, public-safe status, or case closure |
@@ -30,7 +32,7 @@ Website and org route surfaces never override proof status.
 
 ## Known Gaps
 
-Current local generation found 27 cases and 982 scanned source-controlled files. Known gaps are represented directly in the output:
+Current local generation found 27 cases and 968 scanned source-controlled files. Hoxline-local `tests/**`, `docs/case-growth/**`, and `examples/case-growth/**` are excluded from live case discovery so fixture IDs and generated reports do not feed back into current case counts. Known gaps are represented directly in the output:
 
 * `cases_missing_proof_record_count`: 23
 * `cases_missing_proofcard_count`: 23

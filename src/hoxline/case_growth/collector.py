@@ -8,6 +8,7 @@ from typing import Any
 
 from .discovery import (
     REPO_NAMES,
+    case_growth_files,
     discover_case_ids,
     last_git_update,
     load_structured,
@@ -15,7 +16,6 @@ from .discovery import (
     repo_dirty,
     repo_relative,
     resolve_repo_paths,
-    tracked_files,
 )
 
 
@@ -90,7 +90,7 @@ def build_case_growth_index(repo_root: Path, generated_at: str | None = None) ->
                 "branch": repo_branch(path) if path is not None else "NOT_FOUND",
                 "dirty": repo_dirty(path) if path is not None else None,
                 "authority_boundary": _repo_boundary(name),
-                "files_scanned": len(tracked_files(path)) if path is not None else 0,
+                "files_scanned": len(case_growth_files(name, path)) if path is not None else 0,
             }
         )
         if path is None:
@@ -112,6 +112,8 @@ def build_case_growth_index(repo_root: Path, generated_at: str | None = None) ->
 
     ordered_rows = [rows[key] for key in sorted(rows)]
     summary = _build_summary(ordered_rows)
+    repo_slot_accuracy = _build_repo_slot_accuracy(repo_root, repo_paths)
+    case_growth_health = _build_case_growth_health(summary)
     _add_cross_repo_quality_notes(ordered_rows, data_quality_notes)
 
     return {
@@ -120,9 +122,11 @@ def build_case_growth_index(repo_root: Path, generated_at: str | None = None) ->
         "repo_root": str(repo_root),
         "proof_ceiling": PROOF_CEILING,
         "repos_scanned": repos_scanned,
+        "repo_slot_accuracy": repo_slot_accuracy,
         "source_files_scanned_count": scanned_count,
         "case_ids_discovered_count": len(rows),
         "summary": summary,
+        "case_growth_health": case_growth_health,
         "cases": ordered_rows,
         "data_quality_notes": data_quality_notes,
         "boundary": deepcopy(BOUNDARY),
@@ -372,7 +376,7 @@ def _apply_hoxline_metrics(rows: dict[str, dict[str, Any]], repo_paths: dict[str
     repo = repo_paths.get("hoxline")
     if repo is None:
         return
-    for path in tracked_files(repo):
+    for path in case_growth_files("hoxline", repo):
         if path.suffix.lower() != ".json":
             continue
         try:
@@ -407,7 +411,7 @@ def _apply_website_routes(rows: dict[str, dict[str, Any]], repo_paths: dict[str,
     repo = repo_paths.get("hawkinsoperations-website")
     if repo is None:
         return
-    for path in tracked_files(repo):
+    for path in case_growth_files("hawkinsoperations-website", repo):
         if path.suffix.lower() not in {".ts", ".tsx", ".md", ".json"}:
             continue
         try:
@@ -526,6 +530,141 @@ def _build_summary(rows: list[dict[str, Any]]) -> dict[str, int]:
         "cases_not_public_safe_count": sum(1 for row in rows if row["public_safe_status"] != "PUBLIC_SAFE"),
         "unknown_state_count": sum(1 for row in rows if row["case_state"] == "UNKNOWN_WITH_REASON"),
     }
+
+
+def _build_repo_slot_accuracy(repo_root: Path, repo_paths: dict[str, Path | None]) -> dict[str, Any]:
+    present = [name for name in REPO_NAMES if repo_paths.get(name) is not None]
+    missing = [name for name in REPO_NAMES if repo_paths.get(name) is None]
+    github_org_root = repo_root / ".github"
+    github_sibling = repo_root.parent / "HawkinsOperations.github"
+    if not missing:
+        wording = "seven expected repo slots evaluated; seven present local repos scanned"
+    else:
+        wording = (
+            f"seven expected repo slots evaluated; {len(present)} present local repos scanned; "
+            f"missing local repo slots: {', '.join(missing)}"
+        )
+    return {
+        "expected_repo_slots": len(REPO_NAMES),
+        "present_local_repos": len(present),
+        "missing_local_repos": missing,
+        "github_org_root_exists": github_org_root.exists(),
+        "hawkinsoperations_github_sibling_exists": github_sibling.exists(),
+        "wording": wording,
+    }
+
+
+def _build_case_growth_health(summary: dict[str, int]) -> dict[str, Any]:
+    cases_total = summary["cases_total"]
+    source_packages = summary["source_packages_count"]
+    health = {
+        "validation_coverage_percent": _percent(summary["controlled_validations_count"], source_packages),
+        "proof_record_coverage_percent": _percent(summary["proof_records_count"], cases_total),
+        "proofcard_coverage_percent": _percent(summary["proofcards_count"], cases_total),
+        "scheduled_collector_coverage_percent": _percent(summary["scheduled_collector_lanes_count"], cases_total),
+        "runtime_candidate_coverage_percent": _percent(summary["runtime_candidate_lanes_count"], cases_total),
+        "metrics_coverage_percent": _percent(summary["metrics_available_count"], cases_total),
+        "public_safe_percent": _percent(summary["public_safe_cases_count"], cases_total),
+        "closed_case_percent": _percent(summary["closed_cases_count"], cases_total),
+        "blocked_claim_density": _ratio(summary["blocked_claims_count"], cases_total),
+        "next_gate_coverage_percent": _percent(summary["cases_with_next_gate_count"], cases_total),
+        "missing_proof_record_percent": _percent(summary["cases_missing_proof_record_count"], cases_total),
+        "missing_proofcard_percent": _percent(summary["cases_missing_proofcard_count"], cases_total),
+        "not_public_safe_percent": _percent(summary["cases_not_public_safe_count"], cases_total),
+    }
+    bottlenecks = _health_bottlenecks(summary, health)
+    health.update(
+        {
+            "overall_health_status": _health_status(summary, health),
+            "strongest_lane": _strongest_lane(health),
+            "weakest_lane": _weakest_lane(health),
+            "top_bottlenecks": bottlenecks,
+            "recommended_next_build": _recommended_next_build(summary, health),
+        }
+    )
+    return health
+
+
+def _percent(numerator: int, denominator: int) -> float:
+    if denominator <= 0:
+        return 0.0
+    return round((numerator / denominator) * 100, 2)
+
+
+def _ratio(numerator: int, denominator: int) -> float:
+    if denominator <= 0:
+        return 0.0
+    return round(numerator / denominator, 2)
+
+
+def _health_bottlenecks(summary: dict[str, int], health: dict[str, Any]) -> list[str]:
+    bottlenecks: list[str] = []
+    if summary["cases_total"] and summary["public_safe_cases_count"] == 0 and summary["cases_not_public_safe_count"] == summary["cases_total"]:
+        bottlenecks.append("public_safe blocked for all indexed cases")
+    if health["missing_proof_record_percent"] > 50:
+        bottlenecks.append("proof records missing for most indexed cases")
+    if health["missing_proofcard_percent"] > 50:
+        bottlenecks.append("ProofCards missing for most indexed cases")
+    if health["metrics_coverage_percent"] < 25:
+        bottlenecks.append("case-level metrics available for only a small share of indexed cases")
+    if not bottlenecks:
+        bottlenecks.append("no dominant bottleneck detected from current summary counts")
+    return bottlenecks[:4]
+
+
+def _health_status(summary: dict[str, int], health: dict[str, Any]) -> str:
+    if summary["cases_total"] == 0:
+        return "UNKNOWN_WITH_REASON"
+    if summary["public_safe_cases_count"] == 0 and summary["cases_not_public_safe_count"] == summary["cases_total"]:
+        return "PUBLIC_SAFE_BLOCKED"
+    if health["missing_proof_record_percent"] > 50 or health["missing_proofcard_percent"] > 50:
+        return "PROOF_GAP_DOMINANT"
+    if summary["runtime_candidate_lanes_count"] > 0 or summary["scheduled_collector_lanes_count"] > 0:
+        return "RUNTIME_CANDIDATE_FORMING"
+    if summary["controlled_validations_count"] >= max(1, int(summary["source_packages_count"] * 0.75)):
+        return "CONTROLLED_VALIDATION_HEAVY"
+    return "EARLY_PIPELINE_REAL"
+
+
+def _strongest_lane(health: dict[str, Any]) -> str:
+    candidates = {
+        "controlled_validation": health["validation_coverage_percent"],
+        "proof_records": health["proof_record_coverage_percent"],
+        "proofcards": health["proofcard_coverage_percent"],
+        "scheduled_collectors": health["scheduled_collector_coverage_percent"],
+        "runtime_candidates": health["runtime_candidate_coverage_percent"],
+        "metrics": health["metrics_coverage_percent"],
+        "public_safe": health["public_safe_percent"],
+        "closed_cases": health["closed_case_percent"],
+    }
+    return max(candidates, key=candidates.get)
+
+
+def _weakest_lane(health: dict[str, Any]) -> str:
+    candidates = {
+        "proof_records": health["proof_record_coverage_percent"],
+        "proofcards": health["proofcard_coverage_percent"],
+        "scheduled_collectors": health["scheduled_collector_coverage_percent"],
+        "runtime_candidates": health["runtime_candidate_coverage_percent"],
+        "metrics": health["metrics_coverage_percent"],
+        "public_safe": health["public_safe_percent"],
+        "closed_cases": health["closed_case_percent"],
+    }
+    return min(candidates, key=candidates.get)
+
+
+def _recommended_next_build(summary: dict[str, int], health: dict[str, Any]) -> str:
+    if summary["cases_missing_proof_record_count"] >= summary["cases_missing_proofcard_count"] and summary["cases_missing_proof_record_count"] > 0:
+        return "proof_record_backfill"
+    if summary["cases_missing_proofcard_count"] > 0:
+        return "proofcard_backfill"
+    if summary["public_safe_cases_count"] == 0 and summary["cases_total"] > 0:
+        return "public_safe_candidate_review_packet"
+    if summary["runtime_candidate_lanes_count"] or summary["scheduled_collector_lanes_count"]:
+        return "runtime_signal_review_gate"
+    if health["closed_case_percent"] == 0 and summary["cases_total"] > 0:
+        return "case_closure_contract"
+    return "hygiene_cleanup_only"
 
 
 def _add_cross_repo_quality_notes(rows: list[dict[str, Any]], notes: list[str]) -> None:

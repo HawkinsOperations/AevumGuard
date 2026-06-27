@@ -5,11 +5,14 @@ from typing import Any
 
 def render_case_growth_markdown(index: dict[str, Any]) -> str:
     summary = index["summary"]
+    health = index["case_growth_health"]
+    repo_slots = index.get("repo_slot_accuracy", {})
     lines = [
         "# Hoxline Case Growth Index v0",
         "",
         f"Generated: `{index['generated_at']}`",
         f"Proof ceiling: `{index['proof_ceiling']}`",
+        f"Repo-slot accuracy: `{repo_slots.get('wording', 'UNKNOWN_WITH_REASON')}`",
         "",
         "## Summary",
         "",
@@ -37,6 +40,54 @@ def render_case_growth_markdown(index: dict[str, Any]) -> str:
         "unknown_state_count",
     ):
         lines.append(f"| `{key}` | {summary[key]} |")
+
+    lines.extend(
+        [
+            "",
+            "## Case Growth Health",
+            "",
+            "| Health metric | Value |",
+            "| --- | ---: |",
+        ]
+    )
+    for key in (
+        "validation_coverage_percent",
+        "proof_record_coverage_percent",
+        "proofcard_coverage_percent",
+        "scheduled_collector_coverage_percent",
+        "runtime_candidate_coverage_percent",
+        "metrics_coverage_percent",
+        "public_safe_percent",
+        "closed_case_percent",
+        "blocked_claim_density",
+        "next_gate_coverage_percent",
+        "missing_proof_record_percent",
+        "missing_proofcard_percent",
+        "not_public_safe_percent",
+    ):
+        lines.append(f"| `{key}` | {health[key]} |")
+    lines.extend(
+        [
+            "",
+            "| Assessment | Value |",
+            "| --- | --- |",
+            f"| `overall_health_status` | `{health['overall_health_status']}` |",
+            f"| `strongest_lane` | `{health['strongest_lane']}` |",
+            f"| `weakest_lane` | `{health['weakest_lane']}` |",
+            f"| `recommended_next_build` | `{health['recommended_next_build']}` |",
+            "",
+            "| Top bottleneck |",
+            "| --- |",
+        ]
+    )
+    for bottleneck in health["top_bottlenecks"]:
+        lines.append(f"| {_cell(bottleneck)} |")
+    lines.extend(
+        [
+            "",
+            "The health section is derived from numeric index counts only. It does not promote runtime, signal, customer, production, approval, or public_safe runtime proof.",
+        ]
+    )
 
     lines.extend(
         [

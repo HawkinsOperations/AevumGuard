@@ -97,7 +97,9 @@ python -B -m hoxline.cli case-growth index --repo-root C:\Raylee\Repo\HawkinsOpe
 python -B -m hoxline.cli case-growth index --repo-root C:\Raylee\Repo\HawkinsOperations --format markdown
 ```
 
-Generated examples live in `examples/case-growth/`. The index counts source packages, controlled validations, runtime-candidate lanes, scheduled collector lanes, proof records, ProofCards, Claim Authority blocked claims, metrics availability, `public_safe` cases, closed cases, and next gates.
+From a source checkout without an editable install, set `$env:PYTHONPATH="src"` first. Generated examples live in `examples/case-growth/`. The index counts source packages, controlled validations, runtime-candidate lanes, scheduled collector lanes, proof records, ProofCards, Claim Authority blocked claims, metrics availability, `public_safe` cases, closed cases, and next gates.
+
+The output also includes repo-slot accuracy and Case Growth Health v0. Repo-slot accuracy states whether each of the seven expected repo slots is present locally. Case Growth Health derives coverage percentages, blocked-claim density, strongest lane, weakest lane, top bottlenecks, and recommended next build from the numeric summary counts.
 
 Proof ceiling: `CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY`. The index does not claim runtime proof, signal proof, customer deployment, production readiness, public-safe runtime proof, AI approval, analyst approval, final authorization, or case closure unless explicit repo evidence supports the specific status.
 

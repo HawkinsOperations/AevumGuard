@@ -10,9 +10,11 @@
     "repo_root",
     "proof_ceiling",
     "repos_scanned",
+    "repo_slot_accuracy",
     "source_files_scanned_count",
     "case_ids_discovered_count",
     "summary",
+    "case_growth_health",
     "cases",
     "data_quality_notes",
     "boundary"
@@ -25,6 +27,26 @@
     "repos_scanned": {
       "type": "array",
       "items": { "type": "object" }
+    },
+    "repo_slot_accuracy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_repo_slots",
+        "present_local_repos",
+        "missing_local_repos",
+        "github_org_root_exists",
+        "hawkinsoperations_github_sibling_exists",
+        "wording"
+      ],
+      "properties": {
+        "expected_repo_slots": { "const": 7 },
+        "present_local_repos": { "type": "integer", "minimum": 0, "maximum": 7 },
+        "missing_local_repos": { "$ref": "#/$defs/string_array" },
+        "github_org_root_exists": { "type": "boolean" },
+        "hawkinsoperations_github_sibling_exists": { "type": "boolean" },
+        "wording": { "type": "string", "minLength": 1 }
+      }
     },
     "source_files_scanned_count": { "type": "integer", "minimum": 0 },
     "case_ids_discovered_count": { "type": "integer", "minimum": 0 },
@@ -70,6 +92,69 @@
         "cases_missing_proofcard_count": { "type": "integer", "minimum": 0 },
         "cases_not_public_safe_count": { "type": "integer", "minimum": 0 },
         "unknown_state_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "case_growth_health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "validation_coverage_percent",
+        "proof_record_coverage_percent",
+        "proofcard_coverage_percent",
+        "scheduled_collector_coverage_percent",
+        "runtime_candidate_coverage_percent",
+        "metrics_coverage_percent",
+        "public_safe_percent",
+        "closed_case_percent",
+        "blocked_claim_density",
+        "next_gate_coverage_percent",
+        "missing_proof_record_percent",
+        "missing_proofcard_percent",
+        "not_public_safe_percent",
+        "overall_health_status",
+        "strongest_lane",
+        "weakest_lane",
+        "top_bottlenecks",
+        "recommended_next_build"
+      ],
+      "properties": {
+        "validation_coverage_percent": { "type": "number", "minimum": 0 },
+        "proof_record_coverage_percent": { "type": "number", "minimum": 0 },
+        "proofcard_coverage_percent": { "type": "number", "minimum": 0 },
+        "scheduled_collector_coverage_percent": { "type": "number", "minimum": 0 },
+        "runtime_candidate_coverage_percent": { "type": "number", "minimum": 0 },
+        "metrics_coverage_percent": { "type": "number", "minimum": 0 },
+        "public_safe_percent": { "type": "number", "minimum": 0 },
+        "closed_case_percent": { "type": "number", "minimum": 0 },
+        "blocked_claim_density": { "type": "number", "minimum": 0 },
+        "next_gate_coverage_percent": { "type": "number", "minimum": 0 },
+        "missing_proof_record_percent": { "type": "number", "minimum": 0 },
+        "missing_proofcard_percent": { "type": "number", "minimum": 0 },
+        "not_public_safe_percent": { "type": "number", "minimum": 0 },
+        "overall_health_status": {
+          "enum": [
+            "EARLY_PIPELINE_REAL",
+            "CONTROLLED_VALIDATION_HEAVY",
+            "RUNTIME_CANDIDATE_FORMING",
+            "PROOF_GAP_DOMINANT",
+            "PUBLIC_SAFE_BLOCKED",
+            "UNKNOWN_WITH_REASON"
+          ]
+        },
+        "strongest_lane": { "type": "string", "minLength": 1 },
+        "weakest_lane": { "type": "string", "minLength": 1 },
+        "top_bottlenecks": { "$ref": "#/$defs/string_array" },
+        "recommended_next_build": {
+          "enum": [
+            "proof_record_backfill",
+            "proofcard_backfill",
+            "public_safe_candidate_review_packet",
+            "runtime_signal_review_gate",
+            "case_closure_contract",
+            "external_reviewer_demo_packet",
+            "hygiene_cleanup_only"
+          ]
+        }
       }
     },
     "cases": {

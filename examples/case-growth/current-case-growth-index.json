@@ -1,6 +1,6 @@
 {
   "schema_version": "case-growth-index-v0",
-  "generated_at": "2026-06-27T09:25:43Z",
+  "generated_at": "2026-06-27T10:05:45Z",
   "repo_root": "C:\\Raylee\\Repo\\HawkinsOperations",
   "proof_ceiling": "CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY",
   "repos_scanned": [
@@ -65,10 +65,18 @@
       "branch": "feature/hoxline-case-growth-index-v0",
       "dirty": true,
       "authority_boundary": "product metrics and Hoxline Gauntlet artifact authority only",
-      "files_scanned": 176
+      "files_scanned": 162
     }
   ],
-  "source_files_scanned_count": 982,
+  "repo_slot_accuracy": {
+    "expected_repo_slots": 7,
+    "present_local_repos": 7,
+    "missing_local_repos": [],
+    "github_org_root_exists": true,
+    "hawkinsoperations_github_sibling_exists": false,
+    "wording": "seven expected repo slots evaluated; seven present local repos scanned"
+  },
+  "source_files_scanned_count": 968,
   "case_ids_discovered_count": 27,
   "summary": {
     "cases_total": 27,
@@ -89,6 +97,31 @@
     "cases_missing_proofcard_count": 23,
     "cases_not_public_safe_count": 27,
     "unknown_state_count": 1
+  },
+  "case_growth_health": {
+    "validation_coverage_percent": 85.71,
+    "proof_record_coverage_percent": 14.81,
+    "proofcard_coverage_percent": 14.81,
+    "scheduled_collector_coverage_percent": 14.81,
+    "runtime_candidate_coverage_percent": 18.52,
+    "metrics_coverage_percent": 3.7,
+    "public_safe_percent": 0.0,
+    "closed_case_percent": 0.0,
+    "blocked_claim_density": 9.0,
+    "next_gate_coverage_percent": 96.3,
+    "missing_proof_record_percent": 85.19,
+    "missing_proofcard_percent": 85.19,
+    "not_public_safe_percent": 100.0,
+    "overall_health_status": "PUBLIC_SAFE_BLOCKED",
+    "strongest_lane": "controlled_validation",
+    "weakest_lane": "public_safe",
+    "top_bottlenecks": [
+      "public_safe blocked for all indexed cases",
+      "proof records missing for most indexed cases",
+      "ProofCards missing for most indexed cases",
+      "case-level metrics available for only a small share of indexed cases"
+    ],
+    "recommended_next_build": "proof_record_backfill"
   },
   "cases": [
     {

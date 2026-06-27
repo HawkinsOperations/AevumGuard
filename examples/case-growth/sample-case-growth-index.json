@@ -1,7 +1,7 @@
 {
   "schema_version": "case-growth-index-v0",
-  "generated_at": "2026-06-27T09:25:43Z",
-  "repo_root": "C:\\Raylee\\Repo\\HawkinsOperations\\hoxline\\tests\\fixtures\\case_growth\\org",
+  "generated_at": "2026-06-27T10:02:21Z",
+  "repo_root": "tests\\fixtures\\case_growth\\org",
   "proof_ceiling": "CASE_GROWTH_INDEX_CONTROLLED_REPO_AGGREGATION_ONLY",
   "repos_scanned": [
     {
@@ -68,6 +68,14 @@
       "files_scanned": 2
     }
   ],
+  "repo_slot_accuracy": {
+    "expected_repo_slots": 7,
+    "present_local_repos": 7,
+    "missing_local_repos": [],
+    "github_org_root_exists": true,
+    "hawkinsoperations_github_sibling_exists": false,
+    "wording": "seven expected repo slots evaluated; seven present local repos scanned"
+  },
   "source_files_scanned_count": 24,
   "case_ids_discovered_count": 4,
   "summary": {
@@ -89,6 +97,30 @@
     "cases_missing_proofcard_count": 3,
     "cases_not_public_safe_count": 4,
     "unknown_state_count": 1
+  },
+  "case_growth_health": {
+    "validation_coverage_percent": 33.33,
+    "proof_record_coverage_percent": 25.0,
+    "proofcard_coverage_percent": 25.0,
+    "scheduled_collector_coverage_percent": 25.0,
+    "runtime_candidate_coverage_percent": 25.0,
+    "metrics_coverage_percent": 25.0,
+    "public_safe_percent": 0.0,
+    "closed_case_percent": 0.0,
+    "blocked_claim_density": 1.0,
+    "next_gate_coverage_percent": 75.0,
+    "missing_proof_record_percent": 75.0,
+    "missing_proofcard_percent": 75.0,
+    "not_public_safe_percent": 100.0,
+    "overall_health_status": "PUBLIC_SAFE_BLOCKED",
+    "strongest_lane": "controlled_validation",
+    "weakest_lane": "public_safe",
+    "top_bottlenecks": [
+      "public_safe blocked for all indexed cases",
+      "proof records missing for most indexed cases",
+      "ProofCards missing for most indexed cases"
+    ],
+    "recommended_next_build": "proof_record_backfill"
   },
   "cases": [
     {
@@ -143,7 +175,7 @@
       "case_state": "BLOCKED_WAITING_NEXT_GATE",
       "metrics_available": false,
       "metrics_refs": [],
-      "last_updated": "UNKNOWN_WITH_REASON: no git history available",
+      "last_updated": "2026-06-27T04:32:03-05:00",
       "next_gate": "human review before public wording",
       "evidence_confidence": "HIGH",
       "notes": [
@@ -184,7 +216,7 @@
       "case_state": "BLOCKED_WAITING_NEXT_GATE",
       "metrics_available": false,
       "metrics_refs": [],
-      "last_updated": "UNKNOWN_WITH_REASON: no git history available",
+      "last_updated": "2026-06-27T04:32:03-05:00",
       "next_gate": "create controlled validation package",
       "evidence_confidence": "MEDIUM",
       "notes": [
@@ -254,7 +286,7 @@
       "metrics_refs": [
         "hoxline/examples/gauntlet/sample-work-impact-metrics.json"
       ],
-      "last_updated": "UNKNOWN_WITH_REASON: no git history available",
+      "last_updated": "2026-06-27T04:32:03-05:00",
       "next_gate": "human review before runtime, signal, customer, production, public wording, or final human gate promotion",
       "evidence_confidence": "MEDIUM",
       "notes": [

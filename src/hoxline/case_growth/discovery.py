@@ -79,6 +79,24 @@ def tracked_files(repo_path: Path) -> list[Path]:
     ]
 
 
+def case_growth_files(repo_name: str, repo_path: Path) -> list[Path]:
+    return [path for path in tracked_files(repo_path) if not _excluded_case_growth_file(repo_name, repo_path, path)]
+
+
+def _excluded_case_growth_file(repo_name: str, repo_path: Path, path: Path) -> bool:
+    if repo_name != "hoxline":
+        return False
+    try:
+        rel_parts = path.resolve().relative_to(repo_path.resolve()).parts
+    except ValueError:
+        return False
+    if rel_parts[:1] == ("tests",):
+        return True
+    if rel_parts[:2] in {("docs", "case-growth"), ("examples", "case-growth")}:
+        return True
+    return False
+
+
 def repo_relative(repo_name: str, repo_path: Path, path: Path) -> str:
     try:
         rel = path.resolve().relative_to(repo_path.resolve()).as_posix()
@@ -99,10 +117,10 @@ def load_structured(path: Path) -> Any:
 def discover_case_ids(repo_paths: dict[str, Path | None]) -> tuple[set[str], int]:
     ids: set[str] = set()
     scanned = 0
-    for repo_path in repo_paths.values():
+    for repo_name, repo_path in repo_paths.items():
         if repo_path is None:
             continue
-        for path in tracked_files(repo_path):
+        for path in case_growth_files(repo_name, repo_path):
             scanned += 1
             if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".ico", ".webp", ".avif", ".zip", ".sqlite"}:
                 continue

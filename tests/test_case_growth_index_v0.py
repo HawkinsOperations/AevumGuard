@@ -3,7 +3,9 @@ from __future__ import annotations
 import contextlib
 import io
 import json
+import shutil
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -64,6 +66,38 @@ def derived_summary(rows: list[dict[str, object]]) -> dict[str, int]:
     }
 
 
+def pct(numerator: int, denominator: int) -> float:
+    if denominator <= 0:
+        return 0.0
+    return round((numerator / denominator) * 100, 2)
+
+
+def ratio(numerator: int, denominator: int) -> float:
+    if denominator <= 0:
+        return 0.0
+    return round(numerator / denominator, 2)
+
+
+def derived_health(summary: dict[str, int]) -> dict[str, float]:
+    cases_total = summary["cases_total"]
+    source_packages = summary["source_packages_count"]
+    return {
+        "validation_coverage_percent": pct(summary["controlled_validations_count"], source_packages),
+        "proof_record_coverage_percent": pct(summary["proof_records_count"], cases_total),
+        "proofcard_coverage_percent": pct(summary["proofcards_count"], cases_total),
+        "scheduled_collector_coverage_percent": pct(summary["scheduled_collector_lanes_count"], cases_total),
+        "runtime_candidate_coverage_percent": pct(summary["runtime_candidate_lanes_count"], cases_total),
+        "metrics_coverage_percent": pct(summary["metrics_available_count"], cases_total),
+        "public_safe_percent": pct(summary["public_safe_cases_count"], cases_total),
+        "closed_case_percent": pct(summary["closed_cases_count"], cases_total),
+        "blocked_claim_density": ratio(summary["blocked_claims_count"], cases_total),
+        "next_gate_coverage_percent": pct(summary["cases_with_next_gate_count"], cases_total),
+        "missing_proof_record_percent": pct(summary["cases_missing_proof_record_count"], cases_total),
+        "missing_proofcard_percent": pct(summary["cases_missing_proofcard_count"], cases_total),
+        "not_public_safe_percent": pct(summary["cases_not_public_safe_count"], cases_total),
+    }
+
+
 class CaseGrowthIndexV0Tests(unittest.TestCase):
     def setUp(self) -> None:
         self.index = build_case_growth_index(FIXTURE_ROOT, generated_at="2026-06-27T00:00:00Z")
@@ -110,6 +144,68 @@ class CaseGrowthIndexV0Tests(unittest.TestCase):
     def test_summary_counts_match_row_derived_counts(self) -> None:
         self.assertEqual(self.index["summary"], derived_summary(self.rows))
 
+    def test_case_growth_health_metrics_are_derived_from_summary(self) -> None:
+        health = self.index["case_growth_health"]
+        for key, expected in derived_health(self.index["summary"]).items():
+            self.assertEqual(health[key], expected)
+        self.assertIn(
+            health["recommended_next_build"],
+            {
+                "proof_record_backfill",
+                "proofcard_backfill",
+                "public_safe_candidate_review_packet",
+                "runtime_signal_review_gate",
+                "case_closure_contract",
+                "external_reviewer_demo_packet",
+                "hygiene_cleanup_only",
+            },
+        )
+
+    def test_public_safe_blocked_health_when_no_cases_are_public_safe(self) -> None:
+        health = self.index["case_growth_health"]
+        self.assertEqual(health["overall_health_status"], "PUBLIC_SAFE_BLOCKED")
+        self.assertTrue(any("public_safe blocked" in item for item in health["top_bottlenecks"]))
+
+    def test_repo_slot_accuracy_present_github_fixture(self) -> None:
+        accuracy = self.index["repo_slot_accuracy"]
+        self.assertEqual(accuracy["expected_repo_slots"], 7)
+        self.assertEqual(accuracy["present_local_repos"], 7)
+        self.assertEqual(accuracy["missing_local_repos"], [])
+        self.assertTrue(accuracy["github_org_root_exists"])
+        self.assertIn("seven expected repo slots evaluated", accuracy["wording"])
+
+    def test_repo_slot_accuracy_missing_github_fixture(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir) / "org"
+            shutil.copytree(FIXTURE_ROOT, temp_root)
+            shutil.rmtree(temp_root / ".github")
+            index = build_case_growth_index(temp_root, generated_at="2026-06-27T00:00:00Z")
+        accuracy = index["repo_slot_accuracy"]
+        self.assertEqual(accuracy["expected_repo_slots"], 7)
+        self.assertEqual(accuracy["present_local_repos"], 6)
+        self.assertEqual(accuracy["missing_local_repos"], [".github"])
+        self.assertFalse(accuracy["github_org_root_exists"])
+        self.assertIn("missing local repo slots: .github", accuracy["wording"])
+
+    def test_hoxline_internal_fixture_org_does_not_create_live_cases(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir) / "org"
+            shutil.copytree(FIXTURE_ROOT, temp_root)
+            leak_path = temp_root / "hoxline" / "tests" / "fixtures" / "case_growth" / "org" / "README.md"
+            leak_path.parent.mkdir(parents=True)
+            leak_path.write_text("Fixture-only HO-DET-777 must not become a live case.\n", encoding="utf-8")
+            generated_path = temp_root / "hoxline" / "examples" / "case-growth" / "current-case-growth-index.md"
+            generated_path.parent.mkdir(parents=True)
+            generated_path.write_text("Generated-only HO-DET-778 must not become a live case.\n", encoding="utf-8")
+            doc_path = temp_root / "hoxline" / "docs" / "case-growth" / "HOXLINE_CASE_GROWTH_INDEX_V0.md"
+            doc_path.parent.mkdir(parents=True)
+            doc_path.write_text("Documentation-only HO-DET-779 must not become a live case.\n", encoding="utf-8")
+            index = build_case_growth_index(temp_root, generated_at="2026-06-27T00:00:00Z")
+        case_ids = {row["case_id"] for row in index["cases"]}
+        self.assertNotIn("HO-DET-777", case_ids)
+        self.assertNotIn("HO-DET-778", case_ids)
+        self.assertNotIn("HO-DET-779", case_ids)
+
     def test_blocked_claims_count_is_sum_of_rows(self) -> None:
         self.assertEqual(
             self.index["summary"]["blocked_claims_count"],
@@ -155,11 +251,16 @@ class CaseGrowthIndexV0Tests(unittest.TestCase):
     def test_generated_markdown_includes_table_headers(self) -> None:
         markdown = render_case_growth_markdown(self.index)
         self.assertIn("| Metric | Count |", markdown)
+        self.assertIn("## Case Growth Health", markdown)
+        self.assertIn("| Health metric | Value |", markdown)
+        self.assertIn("| Top bottleneck |", markdown)
         self.assertIn("| case_id | source | validation | runtime_candidate |", markdown)
 
     def test_current_sample_json_has_summary_cases_boundary(self) -> None:
         sample = json.loads(SAMPLE_JSON.read_text(encoding="utf-8"))
         self.assertIn("summary", sample)
+        self.assertIn("case_growth_health", sample)
+        self.assertIn("repo_slot_accuracy", sample)
         self.assertIn("cases", sample)
         self.assertIn("boundary", sample)
 
