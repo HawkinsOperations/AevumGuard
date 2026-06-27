@@ -8,6 +8,7 @@ import sys
 from .gauntlet import GauntletError, build_full_loop_run, render_markdown, verify_full_loop_run_file
 from .gauntlet import decide_claim_authority_v1, render_proofcard_v1, summarize_gauntlet_run_v1
 from .demo import DemoError, build_demo_run, default_output_dir, render_quickstart_console, verify_demo_run_dir, write_demo_run
+from .metrics import build_work_impact_report
 from .review_engine import (
     ReviewEngineError,
     render_batch_console,
@@ -27,6 +28,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "gauntlet" and args.gauntlet_command == "run":
         return _run_gauntlet(args)
+    if args.command == "gauntlet" and args.gauntlet_command == "metrics":
+        return _run_gauntlet_metrics(args)
     if args.command == "gauntlet" and args.gauntlet_command == "verify":
         return _verify_gauntlet(args)
     if args.command == "gauntlet" and args.gauntlet_command == "summarize":
@@ -67,6 +70,14 @@ def _build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--artifact", required=True, help="artifact id to evaluate")
     run_parser.add_argument("--format", choices=("json", "markdown"), default="json", help="output format")
     run_parser.add_argument("--output", help="optional output file path")
+
+    metrics_parser = gauntlet_subparsers.add_parser("metrics", help="emit Hoxline Gauntlet work-impact metrics")
+    metrics_parser.add_argument("--events", required=True, help="synthetic events fixture path")
+    metrics_parser.add_argument("--artifact", required=True, help="sample artifact JSON path")
+    metrics_parser.add_argument("--proofcard", required=True, help="sample ProofCard JSON path")
+    metrics_parser.add_argument("--claim-output", required=True, help="sample Claim Authority output JSON path")
+    metrics_parser.add_argument("--format", choices=("json",), default="json", help="output format")
+    metrics_parser.add_argument("--output", help="optional output file path")
 
     verify_parser = gauntlet_subparsers.add_parser("verify", help="verify a full-loop Gauntlet JSON output")
     verify_parser.add_argument("--input", required=True, help="Gauntlet full-loop JSON output to verify")
@@ -140,6 +151,25 @@ def _add_demo_run_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--stdout-only", action="store_true", help="print the walkthrough without writing files")
 
 def _run_gauntlet(args: argparse.Namespace) -> int:
+    artifact_path = Path(args.artifact)
+    if artifact_path.is_file():
+        try:
+            report = _build_gauntlet_v0_lab_report(artifact_path)
+        except (GauntletError, OSError) as exc:
+            print(f"Hoxline Gauntlet: error: {exc}", file=sys.stderr)
+            return 2
+
+        if args.format == "json":
+            output = json.dumps(report, indent=2) + "\n"
+        else:
+            output = _render_gauntlet_v0_lab_markdown(report)
+
+        if args.output:
+            Path(args.output).write_text(output, encoding="utf-8")
+        else:
+            print(output, end="")
+        return 0
+
     try:
         report = build_full_loop_run(args.artifact)
     except GauntletError as exc:
@@ -151,6 +181,26 @@ def _run_gauntlet(args: argparse.Namespace) -> int:
     else:
         output = render_markdown(report)
 
+    if args.output:
+        Path(args.output).write_text(output, encoding="utf-8")
+    else:
+        print(output, end="")
+    return 0
+
+
+def _run_gauntlet_metrics(args: argparse.Namespace) -> int:
+    try:
+        report = build_work_impact_report(
+            events_path=Path(args.events),
+            artifact_path=Path(args.artifact),
+            proofcard_path=Path(args.proofcard),
+            claim_output_path=Path(args.claim_output),
+        )
+    except (OSError, ValueError) as exc:
+        print(f"Hoxline Gauntlet metrics: error: {exc}", file=sys.stderr)
+        return 2
+
+    output = json.dumps(report, indent=2) + "\n"
     if args.output:
         Path(args.output).write_text(output, encoding="utf-8")
     else:
@@ -323,6 +373,81 @@ def _load_json(path: Path) -> dict[str, object]:
     return data
 
 
+def _build_gauntlet_v0_lab_report(artifact_path: Path) -> dict[str, object]:
+    artifact = _load_json(artifact_path)
+    artifact_id = artifact.get("artifact_id")
+    if artifact_id != "HOX-GAUNTLET-001":
+        raise GauntletError("gauntlet v0 lab artifact path must identify HOX-GAUNTLET-001")
+
+    proof_ceiling = artifact.get("proof_ceiling")
+    if proof_ceiling != "CONTROLLED_VALIDATION_PRODUCT_DEMO_ONLY":
+        raise GauntletError("gauntlet v0 lab proof ceiling must remain controlled validation / product demo only")
+
+    blocked_claims = artifact.get("blocked_claims")
+    if not isinstance(blocked_claims, list) or not blocked_claims:
+        raise GauntletError("gauntlet v0 lab artifact must list blocked claims")
+
+    safe_claim = artifact.get("safe_claim")
+    if not isinstance(safe_claim, str) or not safe_claim:
+        raise GauntletError("gauntlet v0 lab artifact must include a safe claim")
+
+    return {
+        "schema_version": "gauntlet-v0-lab-summary",
+        "artifact_id": artifact_id,
+        "scenario": artifact.get("scenario"),
+        "proof_ceiling": proof_ceiling,
+        "stages": [
+            {"stage": "AI-assisted security work", "state": "SOURCE_CONTROLLED_SYNTHETIC_DRAFT"},
+            {"stage": "Artifact Intake", "state": "ACCEPTED"},
+            {"stage": "Evidence Graph", "state": "PRESENT"},
+            {"stage": "Telemetry Contract Check", "state": "PASSED_SYNTHETIC_CONTRACT"},
+            {"stage": "Controlled Validation", "state": "PASSED_CONTROLLED_FIXTURES"},
+            {"stage": "Runtime Candidate Ledger", "state": "NOT_PROMOTED"},
+            {"stage": "Signal Observation", "state": "NOT_OBSERVED"},
+            {"stage": "Human Review Gate", "state": "PENDING"},
+            {"stage": "ProofCard", "state": "READY_FOR_REVIEW"},
+            {"stage": "Claim Authority", "state": "SAFE_CLAIM_WITH_BLOCKED_CLAIMS"},
+            {"stage": "Safe Claim / Blocked Claim", "state": "EVIDENCE_BOUND_DECISION"},
+        ],
+        "safe_claim": safe_claim,
+        "blocked_claims": blocked_claims,
+        "public_safe": False,
+        "runtime_proven": False,
+        "signal_observed": False,
+        "human_review_final": False,
+    }
+
+
+def _render_gauntlet_v0_lab_markdown(report: dict[str, object]) -> str:
+    lines = [
+        "# Hoxline Gauntlet v0 Lab Summary",
+        "",
+        f"Artifact: `{report['artifact_id']}`",
+        f"Proof ceiling: `{report['proof_ceiling']}`",
+        "",
+        "## Stages",
+    ]
+    stages = report["stages"]
+    if isinstance(stages, list):
+        for stage in stages:
+            if isinstance(stage, dict):
+                lines.append(f"- {stage['stage']}: {stage['state']}")
+    lines.extend(
+        [
+            "",
+            "## Safe Claim",
+            str(report["safe_claim"]),
+            "",
+            "## Blocked Claims",
+        ]
+    )
+    blocked_claims = report["blocked_claims"]
+    if isinstance(blocked_claims, list):
+        for claim in blocked_claims:
+            lines.append(f"- {claim}")
+    return "\n".join(lines) + "\n"
+
+
 def _print_decision_summary(decision: dict[str, object]) -> None:
     print(f"proof_ceiling: {decision['proof_ceiling']}")
     print(f"proof_ceiling_meaning: {decision['proof_ceiling_meaning']}")
@@ -341,3 +466,7 @@ def _print_decision_summary(decision: dict[str, object]) -> None:
     print("missing_evidence:")
     for item in decision["missing_evidence"]:
         print(f"- {item}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
